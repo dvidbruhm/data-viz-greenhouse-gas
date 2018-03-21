@@ -95,6 +95,7 @@ h2 + p {
 }
 .panel2 {
 	background:#888888;
+	overflow: auto;
 }
 .panel3 {
 	background:#888888;
