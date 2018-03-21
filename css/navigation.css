@@ -61,6 +61,9 @@ h1 {
 h2 {
 	font-size:8em;
 }
+h3 {
+	font-size:4em;
+}
 p {
 	font-size: 4em;
 	line-height:1.3;
@@ -68,12 +71,39 @@ p {
 h2 + p {
 	font-size:3em;
 }
+li {
+	font-size:5em; 
+	list-style:disc; 
+	text-indent:1em;
+	list-style-position: inside;
+}
+
+.sub-c {
+	vertical-align:sub;
+	font-size:0.5em;
+}
+
+.mockup-img {
+	heigth:70%; 
+	display:block; 
+	margin-left:auto; 
+	margin-right:auto
+}
 .vertical-center {
 	text-align:center;
 	width:100%;
 	position: absolute;
 	top: 47%;
 	transform: translateY(-47%);
+	line-height: 1.2;
+}
+.vertical-left {
+	text-align:left;
+	width:100%;
+	position: absolute;
+	top: 47%;
+	transform: translateY(-47%);
+	line-height: 1.2;
 }
 .vertical-center p {
 	margin-top:23px;
@@ -89,6 +119,7 @@ h2 + p {
 /* STYLE DE CHAQUE PAGE */
 .home {
 	background:#222222;
+	color:#AAAAAA;
 }
 .panel1 {
 	background:#888888;
