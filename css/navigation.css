@@ -55,14 +55,14 @@ body {
 	font-family: 'Lato', sans-serif;
 }
 h1 {
-	font-size:13em;
+	font-size:8em;
 
 }
 h2 {
-	font-size:8em;
+	font-size:5em;
 }
 h3 {
-	font-size:4em;
+	font-size:3em;
 }
 p {
 	font-size: 4em;
@@ -72,7 +72,7 @@ h2 + p {
 	font-size:3em;
 }
 li {
-	font-size:5em; 
+	font-size:3em; 
 	list-style:disc; 
 	text-indent:1em;
 	list-style-position: inside;
@@ -83,8 +83,7 @@ li {
 	font-size:0.5em;
 }
 
-.mockup-img {
-	heigth:70%; 
+.mockupimg {
 	display:block; 
 	margin-left:auto; 
 	margin-right:auto
@@ -122,20 +121,20 @@ li {
 	color:#AAAAAA;
 }
 .panel1 {
-	background:#888888;
+	background:#FFFFFF;
 }
 .panel2 {
-	background:#888888;
+	background:#FFFFFF;
 	overflow: auto;
 }
 .panel3 {
-	background:#888888;
+	background:#FFFFFF;
 }
 .panel4 {
-	background:#888888;
+	background:#FFFFFF;
 }
 .panel5 {
-	background:#888888;
+	background:#FFFFFF;
 }
 
 .code {
