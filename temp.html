@@ -16,6 +16,10 @@
 		<![endif]-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300"/>
 		<link rel="stylesheet" href="css/navigation.css" />
+		<link rel="stylesheet" href="css/auto-complete.css">
+		<link rel="stylesheet" href="css/leaflet.css">
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/main.css">
 
 	</head>
 	<body>
@@ -49,15 +53,28 @@
 				</div>
 			</div>
         </section>
-        
+		
 		<section class="panel panel3" data-section-name="fourth">
 			<div class="inner">
 				<div class="vertical-center">
 					<h2>L'émission total d'équivalent CO2 par province, année et gaz.</h2>
-					<img src="img/filtre1.png" class="mockupimg" style="display: inline-block; *display: inline; zoom: 1; vertical-align: top; width:24%">
-					<img src="img/bar1.png" class="mockupimg" style="display: inline-block; *display: inline; zoom: 1; vertical-align: top; width:25%">
-					<img src="img/bar2.png" class="mockupimg" style="display: inline-block; *display: inline; zoom: 1; vertical-align: top; width:25%">
-					<img src="img/bar3.png" class="mockupimg" style="display: inline-block; *display: inline; zoom: 1; vertical-align: top; width:25%">
+					<div class="tabs">
+						<ul class="header row">
+						  <li class="col active" style="list-style:none;">Par année</li>
+						  <li class="col" style="list-style:none;">Par province</li>
+						  <li class="col" style="list-style:none;">Par gaz</li>
+						</ul>
+						<div class="content">
+						  <section class="tab visible" aria-label="Par année">
+								<svg id="bar-chart1-svg" style="background-color:lightgrey"></svg>
+						  </section>
+						  <section class="tab" aria-label="Par province">
+						  </section>
+						  <section class="tab" aria-label="Par gaz">
+							  
+						  </section>
+						</div>
+					  </div>
 				</div>
 			</div>
 		</section>
@@ -82,17 +99,28 @@
 			</div>
 		</section>
 
-		<script src="js/jquery-2.1.1.js"></script>
 
-		<script src="js/jquery.scrollify.js"></script>
+		
+		<script type="text/javascript" src="libs/d3.v3.js"></script>
+		<script type="text/javascript" src="libs/d3-tip.js"></script>
+		<script type="text/javascript" src="libs/d3-queue.v3.min.js"></script>
+		<script type="text/javascript" src="libs/leaflet.js"></script>
+		<script type="text/javascript" src="libs/topojson.v1.js"></script>
+		<script type="text/javascript" src="libs/localization-fr.js"></script>
+		<script type="text/javascript" src="libs/auto-complete.min.js"></script>
+		<script type="text/javascript" src="libs/search-bar.js"></script>
+	  
 
+		<script src="libs/jquery-2.1.1.js"></script>
+		<script src="libs/jquery.scrollify.js"></script>
 		<script src="js/navigation.js"></script>
 		<script async defer src="https://buttons.github.io/buttons.js"></script>
-		<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-		ga('create', 'UA-50992962-1', 'lukehaas.me');
-		ga('send', 'pageview');</script>
+
+		
+		<script src="js/dataprocess.js"></script>
+		<script src="js/barcharts.js"></script>
+		<script src="js/main.js"></script>
+
+
 	</body>
 </html>
