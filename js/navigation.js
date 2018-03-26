@@ -5,6 +5,19 @@ $(function() {
     before:function(i,panels) {
 
       var ref = panels[i].attr("data-section-name");
+      if(ref === "home" || ref === "second" || ref === "third") {
+        $( "#filter-panel" ).animate({
+          opacity: 0
+        }, 1000, function() {
+          // Animation complete.
+        });
+      } else {
+        $( "#filter-panel" ).animate({
+          opacity: 1
+        }, 1000, function() {
+          // Animation complete.
+        });
+      }
 
       $(".pagination .active").removeClass("active");
 
@@ -24,16 +37,9 @@ $(function() {
       pagination += "</ul>";
 
       $(".home").append(pagination);
-      /*
-
-      Tip: The two click events below are the same:
-
-      $(".pagination a").on("click",function() {
-        $.scrollify.move($(this).attr("href"));
-      });
-
-      */
       $(".pagination a").on("click",$.scrollify.move);
+
+      
     }
   });
 });

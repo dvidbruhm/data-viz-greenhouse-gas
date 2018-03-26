@@ -112,8 +112,7 @@ li {
 .inner {
 	position: relative;
 	height:100%;
-
-	width:80%;
+	width:99.99%;
 	margin:0 auto;
 }
 /* STYLE DE CHAQUE PAGE */
@@ -125,14 +124,14 @@ li {
 	background:#FFFFFF;
 }
 .panel2 {
-	background:#FFFFFF;
+	background:#222222;
 	overflow: auto;
 }
 .panel3 {
 	background:#FFFFFF;
 }
 .panel4 {
-	background:#FFFFFF;
+	background:#222222;
 }
 .panel5 {
 	background:#FFFFFF;
@@ -236,7 +235,7 @@ li {
 
 }
 
-@media (max-width:800px) {
+@media (max-width:1000px) {
 	h1 {
 		font-size:15vw;
 	}

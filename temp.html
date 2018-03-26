@@ -14,6 +14,7 @@
 		<!--[if lt IE  9]>
 		<script src="script/html5shiv.min.js"></script>
 		<![endif]-->
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">  
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300"/>
 		<link rel="stylesheet" href="css/navigation.css" />
 		<link rel="stylesheet" href="css/auto-complete.css">
@@ -21,8 +22,72 @@
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="css/main.css">
 
+
+		<link href = "css/jquery-ui.css" rel ="stylesheet">
 	</head>
 	<body>
+
+		<div id="filter-panel" class="filter">
+			<form action="">
+				<label for = "slider-years">Années :</label>
+				<span id="slider-years"></span>
+				<div id = "slider-3" style="width:60%;left:20%"></div>
+				<br>
+
+				<span>Provinces</span><br>
+				<table style="width:100%">
+					<tr>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="qc">QC<br></th>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="bc">BC<br></th> 
+					</tr>
+					<tr>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="qc">QC<br></th>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="bc">BC<br></th> 
+					</tr>
+					<tr>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="qc">QC<br></th>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="bc">BC<br></th> 
+					</tr>
+					<tr>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="qc">QC<br></th>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="bc">BC<br></th> 
+					</tr>
+					<tr>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="qc">QC<br></th>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="bc">BC<br></th> 
+					</tr>
+				</table>
+				<br>
+				<span>Gaz</span><br>
+				
+				<table style="width:100%">
+					<tr>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="co2">CO2<br></th>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="co2">CO2<br></th> 
+					</tr>
+					<tr>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="co2">CO2<br></th>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="co2">CO2<br></th> 
+					</tr>
+					<tr>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="co2">CO2<br></th>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="co2">CO2<br></th> 
+					</tr>
+					<tr>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="co2">CO2<br></th>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="co2">CO2<br></th> 
+					</tr>
+					<tr>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="co2">CO2<br></th>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="co2">CO2<br></th> 
+					</tr>
+					<tr>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="co2">CO2<br></th>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="co2">CO2<br></th> 
+					</tr>
+				</table>
+			</form>
+		</div>
 
 		<section class="panel home" data-section-name="home">
 			<div class="inner">
@@ -56,8 +121,13 @@
 		
 		<section class="panel panel3" data-section-name="fourth">
 			<div class="inner">
+				<h2 style="background-color:blue;width:80%;float:right">L'émission total d'équivalent CO2 par province, année et gaz.</h2>
+
 				<div class="vertical-center">
-					<h2>L'émission total d'équivalent CO2 par province, année et gaz.</h2>
+
+					<div class="filter-space">
+						
+					</div>
 					<div class="tabs">
 						<ul class="header row">
 						  <li class="col active" style="list-style:none;">Par année</li>
@@ -74,7 +144,7 @@
 							  
 						  </section>
 						</div>
-					  </div>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -112,15 +182,15 @@
 	  
 
 		<script src="libs/jquery-2.1.1.js"></script>
+		<script src="libs/jquery-ui.min.js"></script>
 		<script src="libs/jquery.scrollify.js"></script>
 		<script src="js/navigation.js"></script>
 		<script async defer src="https://buttons.github.io/buttons.js"></script>
 
-		
 		<script src="js/dataprocess.js"></script>
 		<script src="js/barcharts.js"></script>
+		<script src="js/filter.js"></script>
 		<script src="js/main.js"></script>
-
 
 	</body>
 </html>
