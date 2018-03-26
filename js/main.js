@@ -1,4 +1,11 @@
+
+var globalData = undefined;
+
+
 (function (L, d3, topojson, searchBar, localization) {
+
+
+    init_filter_panel();
 
     /***** Échelles utilisées *****/
     //TODO
@@ -16,8 +23,9 @@
 
             /***** Prétraitement des données *****/
             var data = cleandata(rawdata);
-            console.log(data);
-            init_barchart1(data, localization);
+            globalData = data;
+
+            main_barchart(data, localization);
             
         });
 

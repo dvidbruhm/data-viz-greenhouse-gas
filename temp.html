@@ -37,24 +37,28 @@
 				<span>Provinces</span><br>
 				<table style="width:100%">
 					<tr>
-						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="qc">QC<br></th>
-						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="bc">BC<br></th> 
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="qc" id="checkbox-QC" onchange="updateFilters()">QC<br></th>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="bc" id="checkbox-BC" onchange="updateFilters()">BC<br></th> 
 					</tr>
 					<tr>
-						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="qc">QC<br></th>
-						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="bc">BC<br></th> 
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="on" id="checkbox-ON" onchange="updateFilters()">ON<br></th>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="ns" id="checkbox-NS" onchange="updateFilters()">NS<br></th> 
 					</tr>
 					<tr>
-						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="qc">QC<br></th>
-						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="bc">BC<br></th> 
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="nb" id="checkbox-NB" onchange="updateFilters()">NB<br></th>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="mb" id="checkbox-MB" onchange="updateFilters()">MB<br></th> 
 					</tr>
 					<tr>
-						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="qc">QC<br></th>
-						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="bc">BC<br></th> 
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="pe" id="checkbox-PE" onchange="updateFilters()">PE<br></th>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="sk" id="checkbox-SK" onchange="updateFilters()">SK<br></th> 
 					</tr>
 					<tr>
-						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="qc">QC<br></th>
-						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="bc">BC<br></th> 
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="nl" id="checkbox-AB" onchange="updateFilters()">NL<br></th> 
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="ab" id="checkbox-NL" onchange="updateFilters()">AB<br></th>
+					</tr>
+					<tr>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="nt" id="checkbox-NT" onchange="updateFilters()">NT<br></th> 
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="nu" id="checkbox-NU" onchange="updateFilters()">NU<br></th>
 					</tr>
 				</table>
 				<br>
@@ -189,6 +193,7 @@
 
 		<script src="js/dataprocess.js"></script>
 		<script src="js/barcharts.js"></script>
+		<script src="js/barchart1.js"></script>
 		<script src="js/filter.js"></script>
 		<script src="js/main.js"></script>
 

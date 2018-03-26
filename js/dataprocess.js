@@ -67,7 +67,7 @@ function cleandata(rawdata){
                         {
                             year: parseInt(element[keys[1]]),
                             total_eq: parseFloat(element[keys[51]]) || 0,
-                            total_partial_eq: parseFloat(element[keys[51]]) || 0,
+                            filtered_total_eq: parseFloat(element[keys[51]]) || 0,
                             co2: parseFloat(element[keys[19]]) || 0,
                             co2_eq: parseFloat(element[keys[20]]) || 0,
                             ch4: parseFloat(element[keys[21]]) || 0,
@@ -129,7 +129,7 @@ function cleandata(rawdata){
                 {
                     year: parseInt(element[keys[1]]),
                     total_eq: parseFloat(element[keys[51]]) || 0,
-                    total_partial_eq: parseFloat(element[keys[51]]) || 0,
+                    filtered_total_eq: parseFloat(element[keys[51]]) || 0,
                     co2: parseFloat(element[keys[19]]) || 0,
                     co2_eq: parseFloat(element[keys[20]]) || 0,
                     ch4: parseFloat(element[keys[21]]) || 0,
