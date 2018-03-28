@@ -53,8 +53,8 @@
 						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="sk" id="checkbox-SK" onchange="updateFilters()">SK<br></th> 
 					</tr>
 					<tr>
-						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="nl" id="checkbox-AB" onchange="updateFilters()">NL<br></th> 
-						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="ab" id="checkbox-NL" onchange="updateFilters()">AB<br></th>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="nl" id="checkbox-NL" onchange="updateFilters()">NL<br></th> 
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="ab" id="checkbox-AB" onchange="updateFilters()">AB<br></th>
 					</tr>
 					<tr>
 						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="nt" id="checkbox-NT" onchange="updateFilters()">NT<br></th> 
@@ -66,29 +66,35 @@
 				
 				<table style="width:100%">
 					<tr>
-						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="co2">CO2<br></th>
-						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="co2">CO2<br></th> 
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="co2" id="checkbox-co2" onchange="updateFilters()">CO2<br></th>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="ch4" id="checkbox-ch4" onchange="updateFilters()">CH4<br></th> 
 					</tr>
 					<tr>
-						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="co2">CO2<br></th>
-						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="co2">CO2<br></th> 
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="hfc-152a" id="checkbox-hfc-152a" onchange="updateFilters()">HFC-152a<br></th>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="n2o" id="checkbox-n2o" onchange="updateFilters()">N20<br></th> 
 					</tr>
 					<tr>
-						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="co2">CO2<br></th>
-						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="co2">CO2<br></th> 
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="hfc-32" id="checkbox-hfc-32" onchange="updateFilters()">HFC-32<br></th>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="hfc-134" id="checkbox-hfc-134" onchange="updateFilters()">HFC-134<br></th> 
 					</tr>
 					<tr>
-						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="co2">CO2<br></th>
-						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="co2">CO2<br></th> 
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="hfc-134a" id="checkbox-hfc-134a" onchange="updateFilters()">HFC-134a<br></th>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="hfc-227ea" id="checkbox-hfc-227ea" onchange="updateFilters()">HFC-227ea<br></th> 
 					</tr>
 					<tr>
-						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="co2">CO2<br></th>
-						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="co2">CO2<br></th> 
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="hfc-125" id="checkbox-hfc-125" onchange="updateFilters()">HFC-125<br></th>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="hfc-143a" id="checkbox-hfc-143a" onchange="updateFilters()">HFC-143a<br></th> 
 					</tr>
 					<tr>
-						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="co2">CO2<br></th>
-						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="co2">CO2<br></th> 
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="cf4" id="checkbox-cf4" onchange="updateFilters()">CF4<br></th>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="c4f8" id="checkbox-c4f8" onchange="updateFilters()">C4F8<br></th> 
 					</tr>
+					<tr>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="c2f6" id="checkbox-c2f6" onchange="updateFilters()">C2F6<br></th>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="hfc-23" id="checkbox-hfc-23" onchange="updateFilters()">HFC-23<br></th> 
+					</tr>
+					<tr>
+						<td><input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="sf6" id="checkbox-sf6" onchange="updateFilters()">SF6<br></th>					</tr>
 				</table>
 			</form>
 		</div>
@@ -139,13 +145,14 @@
 						  <li class="col" style="list-style:none;">Par gaz</li>
 						</ul>
 						<div class="content">
-						  <section class="tab visible" aria-label="Par année">
+						  <section class="tab visible" id="tab1" aria-label="Par année">
 								<svg id="bar-chart1-svg" style="background-color:lightgrey"></svg>
 						  </section>
-						  <section class="tab" aria-label="Par province">
+						  <section class="tab" id="tab2" aria-label="Par province">
+								<svg id="bar-chart2-svg" style="background-color:lightgrey"></svg>
 						  </section>
 						  <section class="tab" aria-label="Par gaz">
-							  
+								<svg id="bar-chart3-svg" style="background-color:lightgrey"></svg>
 						  </section>
 						</div>
 					</div>
@@ -194,6 +201,8 @@
 		<script src="js/dataprocess.js"></script>
 		<script src="js/barcharts.js"></script>
 		<script src="js/barchart1.js"></script>
+		<script src="js/barchart2.js"></script>
+		<script src="js/barchart3.js"></script>
 		<script src="js/filter.js"></script>
 		<script src="js/main.js"></script>
 

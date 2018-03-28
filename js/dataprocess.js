@@ -167,6 +167,6 @@ function cleandata(rawdata){
         }
     });
 
-    console.log("Finished procssing data.");
+    console.log("Finished processing data.");
     return data;
 }

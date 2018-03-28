@@ -1,11 +1,3 @@
-// First bar chart
-var barChart1Group = undefined;
-var barChart1x = undefined;
-var barChart1y = undefined;
-var barChart1xAxis = undefined;
-var barChart1yAxis = undefined;
-var barChart1Height = undefined;
-var barChart1Data = undefined;
 
 var rawdata = undefined;
 
@@ -24,6 +16,10 @@ function main_barchart(data, localization){
         });
     });
 
+    rawdata = data;
+
     /*** Premier bar chart ***/
     barchart1(data, localization);
+    barchart2(data, localization);
+    barchart3(data, localization);
 }

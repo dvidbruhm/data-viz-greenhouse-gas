@@ -1,32 +1,38 @@
+// First bar chart
+var barChart1Group = undefined;
+var barChart1x = undefined;
+var barChart1y = undefined;
+var barChart1xAxis = undefined;
+var barChart1yAxis = undefined;
+var barChartHeight = undefined;
+var barChart1Data = undefined;
+var barChartWidth = undefined;
 
+/***** Configuration *****/
+var barChartMargin = {
+    top: 55,
+    right: 50,
+    bottom: 80,
+    left: 150
+};
 
 function barchart1(data, localization) {
 
-    rawdata = data;
-
-    /***** Configuration *****/
-    var barChartMargin = {
-        top: 55,
-        right: 50,
-        bottom: 80,
-        left: 150
-    };
-
     var barChart1Svg = d3.select("#bar-chart1-svg");
-
-    var barChartWidth = barChart1Svg.node().getBoundingClientRect().width - barChartMargin.left - barChartMargin.right;
-    barChart1Height = barChart1Svg.node().getBoundingClientRect().height - barChartMargin.top - barChartMargin.bottom;
+    
+    barChartWidth = barChart1Svg.node().getBoundingClientRect().width - barChartMargin.left - barChartMargin.right;
+    barChartHeight = barChart1Svg.node().getBoundingClientRect().height - barChartMargin.top - barChartMargin.bottom;
 
     /***** Création des éléments du diagramme à barres *****/
     barChart1Svg.attr("width", barChartWidth + barChartMargin.left + barChartMargin.right)
-                .attr("height", barChart1Height + barChartMargin.top + barChartMargin.bottom);
+                .attr("height", barChartHeight + barChartMargin.top + barChartMargin.bottom);
 
     barChart1Group = barChart1Svg.append("g")
                                     .attr("transform", "translate(" + barChartMargin.left + "," + barChartMargin.top + ")");
     
     /***** Échelles *****/
     barChart1x = d3.scale.ordinal().rangeRoundBands([0, barChartWidth], 0.05);
-    barChart1y = d3.scale.linear().range([barChart1Height, 0]);
+    barChart1y = d3.scale.linear().range([barChartHeight, 0]);
 
     barChart1xAxis = d3.svg.axis().scale(barChart1x).orient("bottom");
     barChart1yAxis = d3.svg.axis().scale(barChart1y).orient("left").tickFormat(localization.getFormattedNumber);
@@ -50,6 +56,7 @@ function barchart1(data, localization) {
 }
 
 function createBar1Data(provinceFilter) {
+    
     barChart1Data = []
 
     Array(12).fill(1).map((x, y) => x + y + 2003).forEach(element => {
@@ -59,7 +66,7 @@ function createBar1Data(provinceFilter) {
             {
                 var a = e.years.find(x => x.year === element);
                 if (a) {
-                return a.filtered_total_eq;
+                    return a.filtered_total_eq;
                 }
             }
             return 0;
@@ -80,7 +87,7 @@ function createAxes1() {
     // Axe x
     barChart1Group.append("g")
                     .attr("class", "x axis")
-                    .attr("transform", "translate(0," + barChart1Height + ")")
+                    .attr("transform", "translate(0," + barChartHeight + ")")
                     .call(barChart1xAxis)
                         .selectAll("text")
                         .style("font-size", "5mm");
@@ -160,6 +167,6 @@ function drawBarChart1(yearFilter, provinceFilter) {
                     })
                     .attr("width", barChart1x.rangeBand())
                     .attr("height", function(d) {
-                        return barChart1Height - barChart1y(d.total);
+                        return barChartHeight - barChart1y(d.total);
                     });
 }
