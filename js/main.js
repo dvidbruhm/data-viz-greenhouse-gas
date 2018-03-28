@@ -26,7 +26,7 @@ var globalData = undefined;
             globalData = data;
 
             main_barchart(data, localization);
-            
+            main_vizgaz();
         });
 
 
