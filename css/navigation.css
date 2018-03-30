@@ -73,7 +73,7 @@ h2 + p {
 }
 li {
 	font-size:3em; 
-	list-style:disc; 
+	list-style:none; 
 	text-indent:1em;
 	list-style-position: inside;
 }
@@ -115,6 +115,8 @@ li {
 	height:100%;
 	width:99.99%;
 	margin:0 auto;
+	background-color: var(--main-bg-color);
+	color: var(--main-text-color);
 }
 
 
@@ -146,20 +148,20 @@ li {
 
 .pagination {
 	position:fixed;
-	top: -70px;
-	right: 50%;
-	transform: rotate(-90deg) scale(1.3);
+	left:20px;
+	top: 50%;
+	transform: translateY(-50%);
 
-	font-size:0em;
+	font-size: 0em;
 	z-index: 10;
 }
 .pagination a {
 	display:block;
 	height:20px;
 	margin-bottom:5px;
-	color:rgb(0, 0, 0);
+	color:orange;
 	position:relative;
-	padding:4px;
+	padding:2px;
 }
 .pagination a.active:after {
 	box-shadow:inset 0 0 0 5px;
@@ -192,14 +194,6 @@ li {
 	bottom:0;
 }
 
-.social-corner {
-	position: absolute;
-	top:18px;
-	right:40px;
-}
-.social-corner iframe:first-child {
-	margin-right:3px;
-}
 .vertical-center p.cta {
 	margin-top:5px;
 }

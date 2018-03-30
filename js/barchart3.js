@@ -207,7 +207,6 @@ function drawBarChart3(gasFilter, yearFilter, provinceFilter) {
                     .enter()
                     .append("rect")
                     .attr("class", "bar")
-                    .attr("fill", "blue")
                     .transition()
                     .duration(1000)
                     .attr("x", function(d) {

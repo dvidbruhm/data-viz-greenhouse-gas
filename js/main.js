@@ -25,8 +25,16 @@ var globalData = undefined;
             var data = cleandata(rawdata);
             globalData = data;
 
-            main_barchart(data, localization);
             main_vizgaz();
+            main_barchart(data, localization);
+            linechart(data);
+
+            //TODO
+            $(window).resize(function(){
+                setTimeout(function() {
+                    //barchart1(data, localization);
+                }, 100);
+            });
         });
 
 

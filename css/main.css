@@ -1,3 +1,76 @@
+:root {
+  --main-bg-color: black;
+  --main-text-color: white;
+  --main-data-color: orange;
+  --sec-data-color: rgb(255, 196, 87);
+}
+
+.checkmark-container {
+  display: block;
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 7px;
+  cursor: pointer;
+  font-size: 16px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.checkmark-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 18px;
+  width: 18px;
+  background-color: var(--sec-data-color);
+}
+
+/* On mouse-over, add a grey background color */
+.checkmark-container:hover input ~ .checkmark {
+  background-color: var(--main-data-color);
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkmark-container input:checked ~ .checkmark {
+  background-color: var(--main-data-color);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkmark-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkmark-container .checkmark:after {
+  left: 6px;
+  top: 3px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+
 .row {
     display: flex;
 }
@@ -8,26 +81,27 @@
 
 .filter-space {
   float: left;
-  width: 20%;
+  width: calc(15% + 30px);
   height: 100%;
 }
 
 .filter {
   position: fixed;
   float: left;
-  width: 20%;
+  left:30px;
+  width: 15%;
   height: 80%;
-  background-color: lightblue;
   z-index: 10;
   font-size: 12pt;
   top: 47%;
   transform: translateY(-47%);
   opacity: 0;
+  color: var(--main-text-color);
 }
 
 /***** Tabs *****/
 .tabs {
-    width: 80%;
+    width: calc(85% - 30px);
     height: 100%;
     /*border: 1px solid #666;*/
     float:right;
@@ -76,7 +150,6 @@
 
 /***** SVG *****/
 svg {
-    background-color: white;
     width: 100%;
     height: 100%;
   }
@@ -87,28 +160,47 @@ svg {
 	opacity: 1;
   }
   
-  rect {
-    fill-opacity: 0.8;
+  .bar {
+    fill-opacity: 0.5;
+    fill: var(--sec-data-color);
   }
   
-  rect:hover {
+  .bar:hover {
     fill-opacity: 1;
+    fill: var(--main-data-color);
+  }
+
+  .line {
+    opacity: 0.5;
+    stroke: var(--sec-data-color);
+    stroke-width: 1.5;
+  }
+
+  .line:hover {
+    opacity: 1;
+    stroke: var(--main-data-color);
+    stroke-width: 4;
   }
   
+  .label {
+    stroke: var(--main-text-color);
+  }
+
   .axis {
-    shape-rendering: crispEdges
+    shape-rendering: crispEdges;
+    stroke: var(--main-text-color);
   }
   
   .axis path,
   .axis line {
     fill: none;
-    stroke: black;
+    stroke: var(--main-text-color);
     shape-rendering: crispEdges;
   }
   
   .y.axis path {
     fill: none;
-    stroke: black;
+    stroke: var(--main-text-color);
     shape-rendering: crispEdges;
   }
   
@@ -119,13 +211,6 @@ svg {
   
   #circle:hover .disabled {
     fill-opacity: 0.1;
-  }
-  
-  .chord {
-    fill-opacity: 0.8;
-  }
-  .chord:hover {
-    fill-opacity: 0.95;
   }
   
   /***** Tooltip *****/

@@ -1,20 +1,24 @@
 
 function init_filter_panel(){
 
-    $( "#slider-3" ).slider({
-       range:true,
-       min: 2004,
-       max: 2015,
-       values: [ 2004, 2015 ],
-       slide: function(event, ui) {
-          $("#slider-years").text(ui.values[ 0 ] + " - " + ui.values[ 1 ]);
-       },
-       change: function(event, ui) {
-          updateFilters();
-       }
-    });
-       
-     $("#slider-years").text($( "#slider-3" ).slider( "values", 0 ) + " - " + $( "#slider-3" ).slider( "values", 1 ));
+    $(".slider")
+        .slider({
+            range: true,
+            min: 2004,
+            max: 2015,
+            step: 1,
+            values: [2004, 2015],
+            change: function(event, ui) {
+                updateFilters();
+             }
+        })
+        .slider("pips", {
+            rest: "label",
+            step: 15
+        })
+        .slider("float", {
+            rest: "label"
+        });
 
     $('#checkbox-QC').prop('checked', true);
     $('#checkbox-BC').prop('checked', true);
@@ -64,7 +68,7 @@ function updateFilters() {
         "NU": $('#checkbox-NU').is(":checked")
     };
 
-    var yearFilter = [$("#slider-3").slider("values", 0), $("#slider-3").slider("values", 1)];
+    var yearFilter = [$(".slider").slider("values", 0), $(".slider").slider("values", 1)];
 
     var gasFilter = {
         "co2": $('#checkbox-co2').is(":checked"),
@@ -111,6 +115,8 @@ function updateFilters() {
     drawBarChart1(yearFilter, provinceFilter);
     drawBarChart2(yearFilter, provinceFilter);
     drawBarChart3(gasFilter, yearFilter, provinceFilter);
+
+    drawLineChart(yearFilter, provinceFilter);
 
     console.log("Filters updated");
 }

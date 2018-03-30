@@ -19,6 +19,7 @@ var barChartMargin = {
 function barchart1(data, localization) {
 
     var barChart1Svg = d3.select("#bar-chart1-svg");
+    barChart1Svg.select("g").remove();
     
     barChartWidth = barChart1Svg.node().getBoundingClientRect().width - barChartMargin.left - barChartMargin.right;
     barChartHeight = barChart1Svg.node().getBoundingClientRect().height - barChartMargin.top - barChartMargin.bottom;
@@ -83,7 +84,6 @@ function createBar1Data(provinceFilter) {
 }
 
 function createAxes1() {
-    // TODO: Dessiner les axes X et Y du graphique. Assurez-vous d'indiquer un titre pour l'axe Y.
     // Axe x
     barChart1Group.append("g")
                     .attr("class", "x axis")
@@ -156,7 +156,6 @@ function drawBarChart1(yearFilter, provinceFilter) {
                     .enter()
                     .append("rect")
                     .attr("class", "bar")
-                    .attr("fill", "blue")
                     .transition()
                     .duration(1000)
                     .attr("x", function(d) {
