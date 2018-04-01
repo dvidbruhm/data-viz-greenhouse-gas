@@ -155,11 +155,16 @@ svg {
   }
   
 .svg_gaz {
-    width: 90%;
-    height: 80%;
-	opacity: 1;
+    height: 100%;
+	width: 60%;
   }
   
+ .div-gaz11 {
+	height: 100%;
+	width: 100%;
+	background:gold;
+ }
+    
   .bar {
     fill-opacity: 0.5;
     fill: var(--sec-data-color);
