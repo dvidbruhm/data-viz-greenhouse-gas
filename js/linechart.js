@@ -132,7 +132,8 @@ function drawLineChart(yearFilter, provinceFilter) {
     lineChartY.domain([0, maxCount]);
     
     /* Axis update */
-    lineChartXAxis = d3.svg.axis().scale(lineChartX).orient("bottom").tickFormat(d3.format(""));
+    lineChartXAxis = d3.svg.axis().scale(lineChartX).orient("bottom").tickFormat(d3.format(""))
+                        .tickValues(Array(yearFilter[1] - yearFilter[0] + 1).fill(1).map((x, y) => x + y + yearFilter[0] - 1));;
     lineChartYAxis = d3.svg.axis().scale(lineChartY).orient("left");
     
     lineChartGroup.select(".x")

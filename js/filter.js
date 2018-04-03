@@ -1,4 +1,13 @@
 
+
+
+province_checkboxes = ['#checkbox-QC', '#checkbox-BC', '#checkbox-ON', '#checkbox-NS', '#checkbox-NB', '#checkbox-MB', 
+                        '#checkbox-PE', '#checkbox-SK', '#checkbox-NU', '#checkbox-AB', '#checkbox-NL', '#checkbox-NT']
+
+gaz_checkboxes = ['#checkbox-co2', '#checkbox-ch4', '#checkbox-hfc-152a', '#checkbox-n2o', '#checkbox-hfc-32',
+                    '#checkbox-hfc-134', '#checkbox-hfc-134a', '#checkbox-hfc-227ea', '#checkbox-hfc-125', '#checkbox-hfc-143a', 
+                    '#checkbox-cf4', '#checkbox-c4f8', '#checkbox-c2f6', '#checkbox-hfc-23', '#checkbox-sf6']
+
 function init_filter_panel(){
 
     $(".slider")
@@ -13,80 +22,41 @@ function init_filter_panel(){
              }
         })
         .slider("pips", {
-            rest: "label",
-            step: 15
+            first: "label",
+            last: "label",
+            rest: "pip"
         })
         .slider("float", {
             rest: "label"
         });
 
-    $('#checkbox-QC').prop('checked', true);
-    $('#checkbox-BC').prop('checked', true);
-    $('#checkbox-ON').prop('checked', true);
-    $('#checkbox-NS').prop('checked', true);
-    $('#checkbox-NB').prop('checked', true);
-    $('#checkbox-MB').prop('checked', true);
-    $('#checkbox-PE').prop('checked', true);
-    $('#checkbox-SK').prop('checked', true);
-    $('#checkbox-AB').prop('checked', true);
-    $('#checkbox-NL').prop('checked', true);
-    $('#checkbox-NT').prop('checked', true);
-    $('#checkbox-NU').prop('checked', true);
 
-    $('#checkbox-co2').prop('checked', true);
-    $('#checkbox-ch4').prop('checked', true);
-    $('#checkbox-hfc-152a').prop('checked', true);
-    $('#checkbox-n2o').prop('checked', true);
-    $('#checkbox-hfc-32').prop('checked', true);
-    $('#checkbox-hfc-134').prop('checked', true);
-    $('#checkbox-hfc-134a').prop('checked', true);
-    $('#checkbox-hfc-227ea').prop('checked', true);
-    $('#checkbox-hfc-125').prop('checked', true);
-    $('#checkbox-hfc-143a').prop('checked', true);
-    $('#checkbox-cf4').prop('checked', true);
-    $('#checkbox-c4f8').prop('checked', true);
-    $('#checkbox-c2f6').prop('checked', true);
-    $('#checkbox-hfc-23').prop('checked', true);
-    $('#checkbox-sf6').prop('checked', true);
+    province_checkboxes.forEach(element => {
+        $(element).prop('checked', true);
+    });
+
+
+    gaz_checkboxes.forEach(element => {
+        $(element).prop('checked', true);
+    });
 }
 
 
 function updateFilters() {
 
-    var provinceFilter = {
-        "QC": $('#checkbox-QC').is(":checked"),
-        "BC": $('#checkbox-BC').is(":checked"),
-        "ON": $('#checkbox-ON').is(":checked"),
-        "NS": $('#checkbox-NS').is(":checked"),
-        "NB": $('#checkbox-NB').is(":checked"),
-        "MB": $('#checkbox-MB').is(":checked"),
-        "PE": $('#checkbox-PE').is(":checked"),
-        "SK": $('#checkbox-SK').is(":checked"),
-        "AB": $('#checkbox-AB').is(":checked"),
-        "NL": $('#checkbox-NL').is(":checked"),
-        "NT": $('#checkbox-NT').is(":checked"),
-        "NU": $('#checkbox-NU').is(":checked")
-    };
+    var provinceFilter = {};
+
+    province_checkboxes.forEach(element => {
+        provinceFilter[element.substr(element.length - 2)] = $(element).is(":checked");
+    });
 
     var yearFilter = [$(".slider").slider("values", 0), $(".slider").slider("values", 1)];
 
-    var gasFilter = {
-        "co2": $('#checkbox-co2').is(":checked"),
-        "ch4": $('#checkbox-ch4').is(":checked"),
-        "hfc152a": $('#checkbox-hfc-152a').is(":checked"),
-        "n2o": $('#checkbox-n2o').is(":checked"),
-        "hfc32": $('#checkbox-hfc-32').is(":checked"),
-        "hfc134": $('#checkbox-hfc-134').is(":checked"),
-        "hfc134a": $('#checkbox-hfc-134a').is(":checked"),
-        "hfc227ea": $('#checkbox-hfc-227ea').is(":checked"),
-        "hfc125": $('#checkbox-hfc-125').is(":checked"),
-        "hfc143a": $('#checkbox-hfc-143a').is(":checked"),
-        "cf4": $('#checkbox-cf4').is(":checked"),
-        "c4f8": $('#checkbox-c4f8').is(":checked"),
-        "c2f6": $('#checkbox-c2f6').is(":checked"),
-        "hfc23": $('#checkbox-hfc-23').is(":checked"),
-        "sf6": $('#checkbox-sf6').is(":checked")
-    };
+    var gasFilter = {};
+
+    gaz_checkboxes.forEach(element => {
+        gasFilter[element.substr(10).replace("-", "")] = $(element).is(":checked");
+    });
 
     var filteredData = [];
 

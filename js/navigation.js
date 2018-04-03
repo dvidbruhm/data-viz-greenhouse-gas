@@ -6,16 +6,17 @@ $(function() {
 
       var ref = panels[i].attr("data-section-name");
       if(ref === "home" || ref === "second" || ref === "third") {
+        $("#filter-panel").css("pointer-events", "none");
         $( "#filter-panel" ).animate({
           opacity: 0
         }, 1000, function() {
-          // Animation complete.
+          
         });
       } else {
         $( "#filter-panel" ).animate({
           opacity: 1
         }, 1000, function() {
-          // Animation complete.
+          $("#filter-panel").css("pointer-events", "auto");
         });
       }
 

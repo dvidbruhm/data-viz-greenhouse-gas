@@ -4,69 +4,27 @@ Enlever le mouseover
 Ajouter le text pour chaque gaz
 */
 var listGaz = [
-{name: "text1", ratio: 1},
-{name: "text2", ratio: 1},
-{name: "text3", ratio: 25},
-{name: "CO2", ratio: 1},
-{name: "CH4", ratio: 25},
-{name: "HFC-152a", ratio: 124},
-{name: "N2O", ratio: 298},
-{name: "HFC-32", ratio: 675},
-{name: "HFC-134", ratio: 1100},
-{name: "HFC-134a", ratio: 1430},
-{name: "HFC-227ea", ratio: 3220},
-{name: "HFC-125", ratio: 3500},
-{name: "HFC-143a", ratio: 4470},
-{name: "CF4", ratio: 7390},
-{name: "C4F8", ratio: 10300},
-{name: "C2F6", ratio: 12200},
-{name: "HFC-23", ratio: 14800},
-{name: "SF6", ratio: 22800}
+{name: "text1", ratio: 1, color: "#C3AD6F"},
+{name: "text2", ratio: 1, color: "#C3AD6F"},
+{name: "text3", ratio: 25, color: "#C3AD6F"},
+{name: "CO2", ratio: 1, color: "#C3AD6F"},
+{name: "CH4", ratio: 25, color: "#C2AA67"},
+{name: "HFC-152a", ratio: 124, color: "#C1A860"},
+{name: "N2O", ratio: 298, color: "#C0A659"},
+{name: "HFC-32", ratio: 675, color: "#BFA452"},
+{name: "HFC-134", ratio: 1100, color: "#BEA24B"},
+{name: "HFC-134a", ratio: 1430, color: "#BDA044"},
+{name: "HFC-227ea", ratio: 3220, color: "#BC9E3D"},
+{name: "HFC-125", ratio: 3500, color: "#BB9C36"},
+{name: "HFC-143a", ratio: 4470, color: "#BA9A2F"},
+{name: "CF4", ratio: 7390, color: "#B99827"},
+{name: "C4F8", ratio: 10300, color: "#B89620"},
+{name: "C2F6", ratio: 12200, color: "#B79419"},
+{name: "HFC-23", ratio: 14800, color: "#B69212"},
+{name: "SF6", ratio: 22800, color: "#B5900B"}
 ];
 
 listGaz = listGaz.reverse();
-
-var listNom = [
-"text1",
-"text2",
-"text3",
-"CO2",
-"CH4",
-"HFC-152a",
-"N2O",
-"HFC-32",
-"HFC-134",
-"HFC-134a",
-"HFC-227ea",
-"HFC-125",
-"HFC-143a",
-"CF4",
-"C4F8",
-"C2F6",
-"HFC-23",
-"SF6"
-];
-
-var listColor = [
-"#C3AD6F",
-"#C3AD6F",
-"#C3AD6F",
-"#C3AD6F",
-"#C2AA67",
-"#C1A860",
-"#C0A659",
-"#BFA452",
-"#BEA24B",
-"#BDA044",
-"#BC9E3D",
-"#BB9C36",
-"#BA9A2F",
-"#B99827",
-"#B89620",
-"#B79419",
-"#B69212",
-"#B5900B"
-];
 
 var gaz_svg = d3.select("#viz-gaz");
 var svg_width = 0;
@@ -75,8 +33,8 @@ var svg_height = 0;
 var zoom = 500;
 
 var color = d3.scale.ordinal()
-		.domain(listNom)
-		.range(listColor);
+		.domain([...new Set(listGaz.map(item => item.name))])
+		.range([...new Set(listGaz.map(item => item.color))]);
 	
 //var gaz_rect = gaz_svg.selectAll("rect");
 //var gaz_text = gaz_svg.selectAll("text");
@@ -99,6 +57,7 @@ function main_vizgaz() {
 }
 
 function draw_gaz() {
+
 	gaz_svg.selectAll("rect")
 		.data(listGaz)
 		.enter()
