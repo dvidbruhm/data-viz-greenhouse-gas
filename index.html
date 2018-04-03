@@ -14,11 +14,160 @@
 		<!--[if lt IE  9]>
 		<script src="script/html5shiv.min.js"></script>
 		<![endif]-->
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">  
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300"/>
 		<link rel="stylesheet" href="css/navigation.css" />
+		<link rel="stylesheet" href="css/auto-complete.css">
+		<link rel="stylesheet" href="css/leaflet.css">
+		<link href = "css/jquery-ui.min.css" rel ="stylesheet">
+		<link rel="stylesheet" href="css/jquery-ui-slider-pips.css">
+		<link rel="stylesheet" href="css/main.css">
+
 
 	</head>
 	<body>
+
+		<div id="filter-panel" class="filter">
+			<form action="">
+				<div class="filter-section">
+					<div class="filter-title-wrapper">
+						<text class="filter-title">Années</text>
+					</div>
+					<div class="slider"></div>
+					<br>
+				</div>
+
+				<div style="margin-bottom:30px;"></div>
+
+				<div class="filter-section">
+					<div class="filter-title-wrapper">
+						<text class="filter-title">Provinces</text><br>
+					</div>
+				<table style="width:100%">
+					<tr>
+						<td><label class="checkmark-container">QC
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="qc" id="checkbox-QC" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th>
+						<td><label class="checkmark-container">BC
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="bc" id="checkbox-BC" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th> 
+					</tr>
+					<tr>
+						<td><label class="checkmark-container">ON
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="on" id="checkbox-ON" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th>
+						<td><label class="checkmark-container">NS
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="ns" id="checkbox-NS" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th> 
+					</tr>
+					<tr>
+						<td><label class="checkmark-container">NB
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="nb" id="checkbox-NB" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th>
+						<td><label class="checkmark-container">MB
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="mb" id="checkbox-MB" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th> 
+					</tr>
+					<tr>
+						<td><label class="checkmark-container">PE
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="pe" id="checkbox-PE" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th>
+						<td><label class="checkmark-container">SK
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="sk" id="checkbox-SK" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th> 
+					</tr>
+					<tr>
+						<td><label class="checkmark-container">NL
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="nl" id="checkbox-NL" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th> 
+						<td><label class="checkmark-container">AB
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="ab" id="checkbox-AB" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th>
+					</tr>
+					<tr>
+						<td><label class="checkmark-container">NT
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="nt" id="checkbox-NT" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th> 
+						<td><label class="checkmark-container">NU
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="nu" id="checkbox-NU" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th>
+					</tr>
+				</table>
+				</div>
+
+				<div style="margin-bottom:30px;"></div>
+
+				<div class="filter-section">
+					<div class="filter-title-wrapper">
+						<text class="filter-title">Gaz</text><br>
+					</div>
+				
+				<table style="width:100%">
+					<tr>
+						<td><label class="checkmark-container">CO2
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="co2" id="checkbox-co2" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th>
+						<td><label class="checkmark-container">CH4
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="ch4" id="checkbox-ch4" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th> 
+					</tr>
+					<tr>
+						<td><label class="checkmark-container">HFC-152a
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="hfc-152a" id="checkbox-hfc-152a" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th>
+						<td><label class="checkmark-container">N20
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="n2o" id="checkbox-n2o" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th> 
+					</tr>
+					<tr>
+						<td><label class="checkmark-container">HFC-32
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="hfc-32" id="checkbox-hfc-32" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th>
+						<td><label class="checkmark-container">HFC-134
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="hfc-134" id="checkbox-hfc-134" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th> 
+					</tr>
+					<tr>
+						<td><label class="checkmark-container">HFC-134a
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="hfc-134a" id="checkbox-hfc-134a" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th>
+						<td><label class="checkmark-container">HFC-227ea
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="hfc-227ea" id="checkbox-hfc-227ea" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th> 
+					</tr>
+					<tr>
+						<td><label class="checkmark-container">HFC-125
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="hfc-125" id="checkbox-hfc-125" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th>
+						<td><label class="checkmark-container">HFC-143a
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="hfc-143a" id="checkbox-hfc-143a" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th> 
+					</tr>
+					<tr>
+						<td><label class="checkmark-container">CF4
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="cf4" id="checkbox-cf4" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th>
+						<td><label class="checkmark-container">C4F8
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="c4f8" id="checkbox-c4f8" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th> 
+					</tr>
+					<tr>
+						<td><label class="checkmark-container">C2F6
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="c2f6" id="checkbox-c2f6" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th>
+						<td><label class="checkmark-container">HFC-23
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="hfc-23" id="checkbox-hfc-23" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th> 
+					</tr>
+					<tr>
+						<td><label class="checkmark-container">SF6
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="sf6" id="checkbox-sf6" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th>
+					</tr>
+				</table>
+				</div>
+			</form>
+		</div>
 
 		<section class="panel home" data-section-name="home">
 			<div class="inner">
@@ -41,58 +190,130 @@
 			</div>
         </section>
         
+	<!--	<style>
+			.container {
+				position:relative;
+				display: inline-block;
+				height:400px;
+				background: red;
+			}
+			.container > img {
+				height: 100%
+				backgound: pink;
+			}
+			.contents {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				outline: 1px solid blue;
+			}
+		</style> -->
+		
 		<section class="panel panel2" data-section-name="third">
 			<div class="inner">
-				<div class="vertical-left">
-                    <h3>Les X gaz recensés par Statistique Canada n'ont pas le même potentiel de réchauffement. Le CO<sub class="sub-c">2</sub> est utilisé comme référence pour comparer l'effet de serre des différents gaz.</h3>
-					<img src="img/viz_gaz.png" class="mockupimg" style="width:70%">
+				<div class="page-title-wrapper">
+					<text class="page-title">Les gaz n'ont pas tous le même potentiel d'effet de serre.</text>
+				</div>
+				<div class="vertical-center">
+				<!--	<div id="container">
+						<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+						<div id="contents">--><svg id ="viz-gaz" class="svg_gaz"></svg><!--</div>
+					</div>-->
+					<div id = "slider-gaz"></div>
 				</div>
 			</div>
         </section>
-        
+		
 		<section class="panel panel3" data-section-name="fourth">
 			<div class="inner">
+				<div class="page-title-wrapper">
+					<text class="page-title">L'émission total d'équivalent CO2.</text>
+				</div>
+
 				<div class="vertical-center">
-					<h2>L'émission total d'équivalent CO2 par province, année et gaz.</h2>
-					<img src="img/filtre1.png" class="mockupimg" style="display: inline-block; *display: inline; zoom: 1; vertical-align: top; width:24%">
-					<img src="img/bar1.png" class="mockupimg" style="display: inline-block; *display: inline; zoom: 1; vertical-align: top; width:25%">
-					<img src="img/bar2.png" class="mockupimg" style="display: inline-block; *display: inline; zoom: 1; vertical-align: top; width:25%">
-					<img src="img/bar3.png" class="mockupimg" style="display: inline-block; *display: inline; zoom: 1; vertical-align: top; width:25%">
+
+					<div class="filter-space">
+						
+					</div>
+					<div class="tabs">
+						<ul class="header row">
+						  <li class="col active" style="">Par année</li>
+						  <li class="col" style="list-style:none;">Par province</li>
+						  <li class="col" style="list-style:none;">Par gaz</li>
+						</ul>
+						<div class="content">
+						  <section class="tab visible" id="tab1" aria-label="Par année">
+								<svg id="bar-chart1-svg"></svg>
+						  </section>
+						  <section class="tab" id="tab2" aria-label="Par province">
+								<svg id="bar-chart2-svg"></svg>
+						  </section>
+						  <section class="tab" aria-label="Par gaz">
+								<svg id="bar-chart3-svg"></svg>
+						  </section>
+						</div>
+					</div>
 				</div>
 			</div>
 		</section>
 
 		<section class="panel panel4" data-section-name="fifth">
 			<div class="inner">
+				<div class="page-title-wrapper">
+					<text class="page-title">Émission de chaque compagnie</text>
+				</div>
 				<div class="vertical-center">
-					<h2>Line chart de l'émisison des compagnies par année</h2>
-					<img src="img/filtre1.png" class="mockupimg" style="display: inline-block; *display: inline; zoom: 1; vertical-align: top; width:24%">
-					<img src="img/linechart.png" class="mockupimg" style="display: inline-block; *display: inline; zoom: 1; vertical-align: top; width:75%">
+					<div class="filter-space">
+						
+					</div>
+					<div class="tabs">
+						<svg id="line-chart-svg"></svg>
+					</div>
 				</div>
 			</div>
 		</section>
 
 		<section class="panel panel5" data-section-name="sixth">
 			<div class="inner">
+				<div class="page-title-wrapper">
+					<text class="page-title">????????????</text>
+				</div>
 				<div class="vertical-center">
-					<h2>Map des compagnies</h2>
-					<img src="img/filtre2.png" class="mockupimg" style="display: inline-block; *display: inline; zoom: 1; vertical-align: top; width:24%">
-					<img src="img/map.png" class="mockupimg" style="display: inline-block; *display: inline; zoom: 1; vertical-align: top; width:75%">
+					
 				</div>
 			</div>
 		</section>
 
+
+		
+		<script type="text/javascript" src="libs/d3.v3.js"></script>
+		<script type="text/javascript" src="libs/d3-tip.js"></script>
+		<script type="text/javascript" src="libs/d3-queue.v3.min.js"></script>
+		<script type="text/javascript" src="libs/leaflet.js"></script>
+		<script type="text/javascript" src="libs/topojson.v1.js"></script>
+		<script type="text/javascript" src="libs/localization-fr.js"></script>
+		<script type="text/javascript" src="libs/auto-complete.min.js"></script>
+		<script type="text/javascript" src="libs/search-bar.js"></script>
+	  
+
 		<script src="libs/jquery-2.1.1.js"></script>
-
+		<script src="libs/jquery-ui.min.js"></script>
 		<script src="libs/jquery.scrollify.js"></script>
-
 		<script src="js/navigation.js"></script>
+		<script src="libs/jquery-ui-slider-pips.js"></script>
 		<script async defer src="https://buttons.github.io/buttons.js"></script>
-		<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-		ga('create', 'UA-50992962-1', 'lukehaas.me');
-		ga('send', 'pageview');</script>
+
+		<script src="js/dataprocess.js"></script>
+		<script src="js/barcharts.js"></script>
+		<script src="js/barchart1.js"></script>
+		<script src="js/barchart2.js"></script>
+		<script src="js/barchart3.js"></script>
+		<script src="js/linechart.js"></script>
+		<script src="js/filter.js"></script>
+		<script src="js/viz_gaz.js"></script>
+		<script src="js/main.js"></script>
+
 	</body>
 </html>
