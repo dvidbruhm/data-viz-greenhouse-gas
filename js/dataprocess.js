@@ -66,47 +66,47 @@ function cleandata(rawdata){
                     years: [
                         {
                             year: parseInt(element[keys[1]]),
-                            total_eq: parseFloat(element[keys[51]]) || 0,
-                            filtered_total_eq: parseFloat(element[keys[51]]) || 0,
-                            co2: parseFloat(element[keys[19]]) || 0,
-                            co2_eq: parseFloat(element[keys[20]]) || 0,
-                            ch4: parseFloat(element[keys[21]]) || 0,
-                            ch4_eq: parseFloat(element[keys[22]]) || 0,
-                            n2o: parseFloat(element[keys[23]]) || 0,
-                            n2o_eq: parseFloat(element[keys[24]]) || 0,
-                            hfc23: parseFloat(element[keys[25]]) || 0,
-                            hfc23_eq: parseFloat(element[keys[26]]) || 0,
-                            hfc32: parseFloat(element[keys[27]]) || 0,
-                            hfc32_eq: parseFloat(element[keys[28]]) || 0,
-                            hfc125: parseFloat(element[keys[29]]) || 0,
-                            hfc125_eq: parseFloat(element[keys[30]]) || 0,
-                            hfc134a: parseFloat(element[keys[31]]) || 0,
-                            hfc134a_eq: parseFloat(element[keys[32]]) || 0,
-                            hfc143a: parseFloat(element[keys[33]]) || 0,
-                            hfc143a_eq: parseFloat(element[keys[34]]) || 0,
-                            hfc152a: parseFloat(element[keys[35]]) || 0,
-                            hfc152a_eq: parseFloat(element[keys[36]]) || 0,
-                            hfc134: parseFloat(element[keys[37]]) || 0,
-                            hfc134_eq: parseFloat(element[keys[38]]) || 0,
-                            hfc227ea: parseFloat(element[keys[39]]) || 0,
-                            hfc227ea_eq: parseFloat(element[keys[40]]) || 0,
-                            hfc_total_eq: parseFloat(element[keys[41]]) || 0,
-                            cf4: parseFloat(element[keys[42]]) || 0,
-                            cf4_eq: parseFloat(element[keys[43]]) || 0,
-                            c2f6: parseFloat(element[keys[44]]) || 0,
-                            c2f6_eq: parseFloat(element[keys[45]]) || 0,
-                            c4f8: parseFloat(element[keys[46]]) || 0,
-                            c4f8_eq: parseFloat(element[keys[47]]) || 0,
-                            pfc_total_eq: parseFloat(element[keys[48]]) || 0,
-                            sf6: parseFloat(element[keys[49]]) || 0,
-                            sf6_eq: parseFloat(element[keys[50]]) || 0
+                            total_eq: parseFloat(element[keys[51]]) / 1000 || 0,
+                            filtered_total_eq: parseFloat(element[keys[51]]) / 1000 || 0,
+                            co2: parseFloat(element[keys[19]]) / 1000 || 0,
+                            co2_eq: parseFloat(element[keys[20]]) / 1000 || 0,
+                            ch4: parseFloat(element[keys[21]]) / 1000 || 0,
+                            ch4_eq: parseFloat(element[keys[22]]) / 1000 || 0,
+                            n2o: parseFloat(element[keys[23]]) / 1000 || 0,
+                            n2o_eq: parseFloat(element[keys[24]]) / 1000 || 0,
+                            hfc23: parseFloat(element[keys[25]]) / 1000 || 0,
+                            hfc23_eq: parseFloat(element[keys[26]]) / 1000 || 0,
+                            hfc32: parseFloat(element[keys[27]]) / 1000 || 0,
+                            hfc32_eq: parseFloat(element[keys[28]]) / 1000 || 0,
+                            hfc125: parseFloat(element[keys[29]]) / 1000 || 0,
+                            hfc125_eq: parseFloat(element[keys[30]]) / 1000 || 0,
+                            hfc134a: parseFloat(element[keys[31]]) / 1000 || 0,
+                            hfc134a_eq: parseFloat(element[keys[32]]) / 1000 || 0,
+                            hfc143a: parseFloat(element[keys[33]]) / 1000 || 0,
+                            hfc143a_eq: parseFloat(element[keys[34]]) / 1000 || 0,
+                            hfc152a: parseFloat(element[keys[35]]) / 1000 || 0,
+                            hfc152a_eq: parseFloat(element[keys[36]]) / 1000 || 0,
+                            hfc134: parseFloat(element[keys[37]]) / 1000 || 0,
+                            hfc134_eq: parseFloat(element[keys[38]]) / 1000 || 0,
+                            hfc227ea: parseFloat(element[keys[39]]) / 1000 || 0,
+                            hfc227ea_eq: parseFloat(element[keys[40]]) / 1000 || 0,
+                            hfc_total_eq: parseFloat(element[keys[41]]) / 1000 || 0,
+                            cf4: parseFloat(element[keys[42]]) / 1000 || 0,
+                            cf4_eq: parseFloat(element[keys[43]]) / 1000 || 0,
+                            c2f6: parseFloat(element[keys[44]]) / 1000 || 0,
+                            c2f6_eq: parseFloat(element[keys[45]]) / 1000 || 0,
+                            c4f8: parseFloat(element[keys[46]]) / 1000 || 0,
+                            c4f8_eq: parseFloat(element[keys[47]]) / 1000 || 0,
+                            pfc_total_eq: parseFloat(element[keys[48]]) / 1000 || 0,
+                            sf6: parseFloat(element[keys[49]]) / 1000 || 0,
+                            sf6_eq: parseFloat(element[keys[50]]) / 1000 || 0
                         }
                     ],
                     latitude: parseFloat(element[keys[7]]),
                     longitude: parseFloat(element[keys[8]]),
                     ghg_id: element[keys[0]],
                     facility_name: element[keys[2]],
-                    facility_adress: element[keys[3]],
+                    facility_address: element[keys[3]],
                     facility_city: element[keys[4]],
                     facility_province: element[keys[5]],
                     facility_postal_code: element[keys[6]],
@@ -125,43 +125,67 @@ function cleandata(rawdata){
         }
         else // facility already in list
         {
+            var most_recent_year = d3.max(d.years, function(e){
+                return e.year;
+            });
+
+            if (parseInt(element[keys[1]]) > most_recent_year) {
+                d.latitude= parseFloat(element[keys[7]]);
+                d.longitude= parseFloat(element[keys[8]]);
+                d.ghg_id= element[keys[0]];
+                d.facility_name= element[keys[2]];
+                d.facility_address= element[keys[3]];
+                d.facility_city= element[keys[4]];
+                d.facility_province= element[keys[5]];
+                d.facility_postal_code= element[keys[6]];
+                d.facility_id= element[keys[9]];
+                d.facility_code= element[keys[10]];
+                d.facility_code_description= element[keys[11]];
+                d.company_legal_name= element[keys[12]];
+                d.company_trade_name= element[keys[13]];
+                d.contact_name= element[keys[14]];
+                d.contact_position= element[keys[15]];
+                d.contact_phone= element[keys[16]];
+                d.contact_extension= element[keys[17]];
+                d.contact_email= element[keys[18]];
+            }
             d.years.push(
                 {
                     year: parseInt(element[keys[1]]),
-                    total_eq: parseFloat(element[keys[51]]) || 0,
-                    filtered_total_eq: parseFloat(element[keys[51]]) || 0,
-                    co2: parseFloat(element[keys[19]]) || 0,
-                    co2_eq: parseFloat(element[keys[20]]) || 0,
-                    ch4: parseFloat(element[keys[21]]) || 0,
-                    ch4_eq: parseFloat(element[keys[22]]) || 0,
-                    n2o: parseFloat(element[keys[23]]) || 0,
-                    n2o_eq: parseFloat(element[keys[24]]) || 0,
-                    hfc23: parseFloat(element[keys[25]]) || 0,
-                    hfc23_eq: parseFloat(element[keys[26]]) || 0,
-                    hfc32: parseFloat(element[keys[27]]) || 0,
-                    hfc32_eq: parseFloat(element[keys[28]]) || 0,
-                    hfc125: parseFloat(element[keys[29]]) || 0,
-                    hfc125_eq: parseFloat(element[keys[30]]) || 0,
-                    hfc134a: parseFloat(element[keys[31]]) || 0,
-                    hfc134a_eq: parseFloat(element[keys[32]]) || 0,
-                    hfc143a: parseFloat(element[keys[33]]) || 0,
-                    hfc143a_eq: parseFloat(element[keys[34]]) || 0,
-                    hfc152a: parseFloat(element[keys[35]]) || 0,
-                    hfc152a_eq: parseFloat(element[keys[36]]) || 0,
-                    hfc134: parseFloat(element[keys[37]]) || 0,
-                    hfc134_eq: parseFloat(element[keys[38]]) || 0,
-                    hfc227ea: parseFloat(element[keys[39]]) || 0,
-                    hfc227ea_eq: parseFloat(element[keys[40]]) || 0,
-                    hfc_total_eq: parseFloat(element[keys[41]]) || 0,
-                    cf4: parseFloat(element[keys[42]]) || 0,
-                    cf4_eq: parseFloat(element[keys[43]]) || 0,
-                    c2f6: parseFloat(element[keys[44]]) || 0,
-                    c2f6_eq: parseFloat(element[keys[45]]) || 0,
-                    c4f8: parseFloat(element[keys[46]]) || 0,
-                    c4f8_eq: parseFloat(element[keys[47]]) || 0,
-                    pfc_total_eq: parseFloat(element[keys[48]]) || 0,
-                    sf6: parseFloat(element[keys[49]]) || 0,
-                    sf6_eq: parseFloat(element[keys[50]]) || 0
+                    total_eq: parseFloat(element[keys[51]]) / 1000 || 0,
+                    filtered_total_eq: parseFloat(element[keys[51]]) / 1000 || 0,
+                    co2: parseFloat(element[keys[19]]) / 1000 || 0,
+                    co2_eq: parseFloat(element[keys[20]]) / 1000 || 0,
+                    ch4: parseFloat(element[keys[21]]) / 1000 || 0,
+                    ch4_eq: parseFloat(element[keys[22]]) / 1000 || 0,
+                    n2o: parseFloat(element[keys[23]]) / 1000 || 0,
+                    n2o_eq: parseFloat(element[keys[24]]) / 1000 || 0,
+                    hfc23: parseFloat(element[keys[25]]) / 1000 || 0,
+                    hfc23_eq: parseFloat(element[keys[26]]) / 1000 || 0,
+                    hfc32: parseFloat(element[keys[27]]) / 1000 || 0,
+                    hfc32_eq: parseFloat(element[keys[28]]) / 1000 || 0,
+                    hfc125: parseFloat(element[keys[29]]) / 1000 || 0,
+                    hfc125_eq: parseFloat(element[keys[30]]) / 1000 || 0,
+                    hfc134a: parseFloat(element[keys[31]]) / 1000 || 0,
+                    hfc134a_eq: parseFloat(element[keys[32]]) / 1000 || 0,
+                    hfc143a: parseFloat(element[keys[33]]) / 1000 || 0,
+                    hfc143a_eq: parseFloat(element[keys[34]]) / 1000 || 0,
+                    hfc152a: parseFloat(element[keys[35]]) / 1000 || 0,
+                    hfc152a_eq: parseFloat(element[keys[36]]) / 1000 || 0,
+                    hfc134: parseFloat(element[keys[37]]) / 1000 || 0,
+                    hfc134_eq: parseFloat(element[keys[38]]) / 1000 || 0,
+                    hfc227ea: parseFloat(element[keys[39]]) / 1000 || 0,
+                    hfc227ea_eq: parseFloat(element[keys[40]]) / 1000 || 0,
+                    hfc_total_eq: parseFloat(element[keys[41]]) / 1000 || 0,
+                    cf4: parseFloat(element[keys[42]]) / 1000 || 0,
+                    cf4_eq: parseFloat(element[keys[43]]) / 1000 || 0,
+                    c2f6: parseFloat(element[keys[44]]) / 1000 || 0,
+                    c2f6_eq: parseFloat(element[keys[45]]) / 1000 || 0,
+                    c4f8: parseFloat(element[keys[46]]) / 1000 || 0,
+                    c4f8_eq: parseFloat(element[keys[47]]) / 1000 || 0,
+                    pfc_total_eq: parseFloat(element[keys[48]]) / 1000 || 0,
+                    sf6: parseFloat(element[keys[49]]) / 1000 || 0,
+                    sf6_eq: parseFloat(element[keys[50]]) / 1000 || 0
                 }
             );
         }

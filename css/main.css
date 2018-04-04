@@ -2,6 +2,7 @@
   --main-bg-color: black;
   --main-text-color: white;
   --main-data-color: rgb(255, 145, 0);
+  --main-data-color-opacity: rgba(255, 145, 0, 0.5);
   --sec-data-color: rgb(255, 196, 87);
   --sec-data-color-opacity: rgba(255, 196, 87, 0.5);
   --main-bg-color-opacity: rgba(0, 0, 0, 0.5);
@@ -277,7 +278,7 @@ svg {
 
 .line-chart-tip {
   width: 300px;
-  height: 150px;
+  height: 152px;
   background: var(--main-bg-color-opacity);
   border: 2px solid var(--main-data-color);
   border-radius: 3px;
@@ -289,6 +290,11 @@ svg {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.line-chart-tip-title {
+  font-weight: bold;
+  line-height: 1.2;
 }
   
 .svg_gaz {
@@ -317,6 +323,17 @@ svg {
   .bar:hover {
     fill-opacity: 1;
     fill: var(--main-data-color);
+  }
+
+  .circle-tip {
+    fill: var(--main-data-color);
+    r: 10;
+  }
+
+  .circle-tip-text {
+    font-size: 14px;
+    fill: var(--main-text-color);
+    background: black;
   }
 
   .line {
