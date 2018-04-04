@@ -101,9 +101,9 @@
   height: 10px;
   background: var(--main-data-color);
   border: 1px solid var(--main-bg-color);
-  top: -30px;
-  width: 55%;
-  left: 22.5%;
+  top: 10px;
+  width: 50%;
+  left: 25%;
 }
 
 #slider-gaz .ui-slider-handle {
@@ -272,8 +272,8 @@ svg {
   }
   
 .svg_gaz {
-    height: 100%;
-	width: 60%;
+    height: 750px;
+	width: 750px;
   }
   
  .div-gaz11 {

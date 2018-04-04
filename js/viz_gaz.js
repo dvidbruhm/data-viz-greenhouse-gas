@@ -5,8 +5,6 @@ Ajouter le text pour chaque gaz
 */
 var listGaz = [
 {name: "text1", ratio: 1, color: "#C3AD6F"},
-{name: "text2", ratio: 1, color: "#C3AD6F"},
-{name: "text3", ratio: 25, color: "#C3AD6F"},
 {name: "CO2", ratio: 1, color: "#C3AD6F"},
 {name: "CH4", ratio: 25, color: "#C2AA67"},
 {name: "HFC-152a", ratio: 124, color: "#C1A860"},
@@ -49,7 +47,6 @@ function main_vizgaz() {
        value: (100*Math.log(svg_height/(500*Math.sqrt(1)))/Math.log(0.4)),
        slide: function(event, ui) {
           zoom = 500*Math.pow(0.4,(ui.value/100));
-		  console.log(zoom);
 		  redraw_gaz();
        }
     });
@@ -81,50 +78,35 @@ function draw_gaz() {
 				return 1;
 			}});
 		
-	gaz_svg.selectAll("text")
+	gaz_svg.selectAll("text.NomGaz")
 		.data(listGaz)
 		.enter()
 		.append("text")
+		.attr("class", "NomGaz")
 		.attr("fill", "black")
 		.attr("stroke", "black")
-		.attr("text-anchor", function(d) {
-			if (d.name.substring(0,4) == "text") {
-				return "middle";
-			} else {
-				return "end";
-			} 
-		})
+		.attr("text-anchor", "middle")
 		.text(function(d) {
 			if (d.name == "text1") {
 				return ("Le CO2 est utilisé comme référence pour comparer l'effet de serre des gaz.");
-			} else if (d.name == "text2") {
+			} else if (d.name == "CO2") {
 				return ("Ce carré représente l'impact d'une tonne de CO2.");
-			} else if (d.name == "text3") {
-				return("Une tonne de CH4 a le même effet que 25 tonnes de CO2.");
 			} else {
-				return d.name;
+				return ("1 tonne de " + d.name + "  a le même effet que " + d.ratio + " tonnes de CO2.");
 			} 
 		})
 		.attr("x", function(d) {
-			if (d.name.substring(0,4) == "text") {
-				return (Math.sqrt(d.ratio)*zoom/2);
-			} else {
-				return (Math.sqrt(d.ratio)*zoom*0.99);
-			}
+			return (Math.sqrt(d.ratio)*zoom/2);
 		})
 		.attr("y", function(d) {	
 			if (d.name == "text1") {
-				return Math.sqrt(d.ratio)*zoom*29/60;
-			} else if (d.name == "text2") {
-				return Math.sqrt(d.ratio)*zoom*32/60;
-			} else if (d.name == "text3") {
 				return Math.sqrt(d.ratio)*zoom*0.5;
 			} else {
 				return Math.sqrt(d.ratio)*zoom*0.99;
 			} 
 		})
 		.attr("font-size", function(d) {
-			if (d.name.substring(0,4) == "text") {
+			if (d.name == "text1") {
 				return Math.sqrt(d.ratio*0.8)*zoom/30;
 			} else {
 				return Math.sqrt(d.ratio)*zoom/30;
@@ -158,30 +140,22 @@ function redraw_gaz() {
 			}
 		});
 	
-	gaz_svg.selectAll("text")
+	gaz_svg.selectAll("text.NomGaz")
 		.data(listGaz)
 		.transition()
 		.duration(5)
 		.attr("x", function(d) {
-			if (d.name.substring(0,4) == "text") {
-				return (Math.sqrt(d.ratio)*zoom/2);
-			} else {
-				return (Math.sqrt(d.ratio)*zoom*0.99);
-			}
+			return (Math.sqrt(d.ratio)*zoom/2);
 		})
 		.attr("y", function(d) {	
 			if (d.name == "text1") {
-				return Math.sqrt(d.ratio)*zoom*29/60;
-			} else if (d.name == "text2") {
-				return Math.sqrt(d.ratio)*zoom*32/60;
-			} else if (d.name == "text3") {
 				return Math.sqrt(d.ratio)*zoom*0.5;
 			} else {
 				return Math.sqrt(d.ratio)*zoom*0.99;
 			} 
 		})
 		.attr("font-size", function(d) {
-			if (d.name.substring(0,4) == "text") {
+			if (d.name == "text1") {
 				return Math.sqrt(d.ratio*0.8)*zoom/30;
 			} else {
 				return Math.sqrt(d.ratio)*zoom/30;
