@@ -6,9 +6,17 @@ var barChart3xAxis = undefined;
 var barChart3yAxis = undefined;
 var barChart3Data = undefined;
 var barChart3Svg = undefined;
-
+var barChart3BarWidth = undefined;
+var barChart3tip = undefined;
 
 function barchart3(data, localization) {
+
+    barChart3tip = d3.tip()
+      .attr('class', 'd3-tip')
+      .offset([-270, 0])
+      .html(function(d) {
+        return "<span class='d3-tip-text'>Émission:</span> <span class='d3-tip-text-emphasize'>" + d.total + "</span> <strong>kT</strong>";
+      });
 
     barChart3Svg = d3.select("#bar-chart3-svg");
 
@@ -23,76 +31,18 @@ function barchart3(data, localization) {
     barChart3x = d3.scale.ordinal().rangeRoundBands([0, barChartWidth], 0.05);
     barChart3y = d3.scale.linear().range([barChartHeight, 0]);
 
+    barChart3x.domain(d3.keys(default_gas_filter));
+    barChart3BarWidth = barChart3x.rangeBand();
+
     barChart3xAxis = d3.svg.axis().scale(barChart3x).orient("bottom");
     barChart3yAxis = d3.svg.axis().scale(barChart3y).orient("left").tickFormat(localization.getFormattedNumber);
 
-    createBar3Data({
-        "co2": true,
-        "ch4": true,
-        "hfc152a": true,
-        "n2o": true,
-        "hfc32": true,
-        "hfc134": true,
-        "hfc134a": true,
-        "hfc227ea": true,
-        "hfc125": true,
-        "hfc143a": true,
-        "cf4": true,
-        "c4f8": true,
-        "c2f6": true,
-        "hfc23": true,
-        "sf6": true
-    },
-        [2004,2015], 
-    {
-        "QC": true,
-        "BC": true,
-        "ON": true,
-        "NS": true,
-        "NB": true,
-        "MB": true,
-        "PE": true,
-        "SK": true,
-        "AB": true,
-        "NL": true,
-        "NT": true,
-        "NU": true
-    });
 
     /***** Création du bar chart *****/
     createAxes3();
-    drawBarChart3({
-        "co2": true,
-        "ch4": true,
-        "hfc152a": true,
-        "n2o": true,
-        "hfc32": true,
-        "hfc134": true,
-        "hfc134a": true,
-        "hfc227ea": true,
-        "hfc125": true,
-        "hfc143a": true,
-        "cf4": true,
-        "c4f8": true,
-        "c2f6": true,
-        "hfc23": true,
-        "sf6": true
-    },
-        [2004,2015], 
-    {
-        "QC": true,
-        "BC": true,
-        "ON": true,
-        "NS": true,
-        "NB": true,
-        "MB": true,
-        "PE": true,
-        "SK": true,
-        "AB": true,
-        "NL": true,
-        "NT": true,
-        "NU": true
-    });
+    drawBarChart3(default_gas_filter, default_year_filter, default_prov_filter);
+
+    barChart3Svg.call(barChart3tip);
 }
 
 
@@ -136,6 +86,8 @@ function createAxes3() {
                     .attr("transform", "translate(0," + barChartHeight + ")")
                     .call(barChart3xAxis)
                         .selectAll("text")
+                        .attr("transform", "rotate(30)")
+                        .style("text-anchor", "start")
                         .style("font-size", "5mm");
   
     // Axe y
@@ -188,7 +140,9 @@ function drawBarChart3(gasFilter, yearFilter, provinceFilter) {
     
     barChart3Group.select(".x")
                     .selectAll("text")
-                    .style("font-size", "5mm");
+                    .attr("transform", "rotate(30)")
+                    .style("text-anchor", "start")
+                    .style("font-size", "4mm");
 
     barChart3Group.select(".y")
                     .transition(1000)
@@ -207,15 +161,17 @@ function drawBarChart3(gasFilter, yearFilter, provinceFilter) {
                     .enter()
                     .append("rect")
                     .attr("class", "bar")
+                    .on("mouseover", barChart3tip.show)
+                    .on("mouseout", barChart3tip.hide)
                     .transition()
                     .duration(1000)
                     .attr("x", function(d) {
-                        return barChart3x(d.gas);
+                        return barChart3x(d.gas) + (barChart3x.rangeBand() - barChart3BarWidth) / 2;
                     })
                     .attr("y", function(d) {
                         return barChart3y(d.total);
                     })
-                    .attr("width", barChart3x.rangeBand())
+                    .attr("width", barChart3BarWidth)
                     .attr("height", function(d) {
                         return barChartHeight - barChart3y(d.total);
                     });
