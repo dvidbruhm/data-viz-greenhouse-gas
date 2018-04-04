@@ -186,7 +186,7 @@ function lineChartPoints(d) {
                 .enter()         
                 .append("rect")
                 .attr("y", function(e) {
-                    return lineChartY(e.filtered_total_eq) - 10 - 14;
+                    return lineChartY(e.filtered_total_eq) - 16 - 14;
                 })
                 .attr("fill", "black");
 
@@ -218,7 +218,7 @@ function lineChartPoints(d) {
                     return lineChartX(e.year);
                 })
                 .attr("y", function(e) {
-                    return lineChartY(e.filtered_total_eq) - 7;
+                    return lineChartY(e.filtered_total_eq) - 15;
                 })
                 .attr("text-anchor", "middle")
 
