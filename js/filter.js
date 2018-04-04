@@ -2,11 +2,50 @@
 
 
 province_checkboxes = ['#checkbox-QC', '#checkbox-BC', '#checkbox-ON', '#checkbox-NS', '#checkbox-NB', '#checkbox-MB', 
-                        '#checkbox-PE', '#checkbox-SK', '#checkbox-NU', '#checkbox-AB', '#checkbox-NL', '#checkbox-NT']
+                        '#checkbox-PE', '#checkbox-SK', '#checkbox-NU', '#checkbox-AB', '#checkbox-NL', '#checkbox-NT'];
 
 gaz_checkboxes = ['#checkbox-co2', '#checkbox-ch4', '#checkbox-hfc-152a', '#checkbox-n2o', '#checkbox-hfc-32',
                     '#checkbox-hfc-134', '#checkbox-hfc-134a', '#checkbox-hfc-227ea', '#checkbox-hfc-125', '#checkbox-hfc-143a', 
-                    '#checkbox-cf4', '#checkbox-c4f8', '#checkbox-c2f6', '#checkbox-hfc-23', '#checkbox-sf6']
+                    '#checkbox-cf4', '#checkbox-c4f8', '#checkbox-c2f6', '#checkbox-hfc-23', '#checkbox-sf6'];
+
+province_last_all_state = true;
+gas_last_all_state = true;
+
+
+default_prov_filter = {
+    "QC": true,
+    "BC": true,
+    "ON": true,
+    "NS": true,
+    "NB": true,
+    "MB": true,
+    "PE": true,
+    "SK": true,
+    "AB": true,
+    "NL": true,
+    "NT": true,
+    "NU": true
+};
+
+default_year_filter = [2004, 2015];
+
+default_gas_filter = {
+    "co2": true,
+    "ch4": true,
+    "hfc152a": true,
+    "n2o": true,
+    "hfc32": true,
+    "hfc134": true,
+    "hfc134a": true,
+    "hfc227ea": true,
+    "hfc125": true,
+    "hfc143a": true,
+    "cf4": true,
+    "c4f8": true,
+    "c2f6": true,
+    "hfc23": true,
+    "sf6": true
+}
 
 function init_filter_panel(){
 
@@ -39,10 +78,20 @@ function init_filter_panel(){
     gaz_checkboxes.forEach(element => {
         $(element).prop('checked', true);
     });
+
+    $("#checkbox-TOUS").prop('checked', true);
+    $("#checkbox-TOUS-gas").prop('checked', true);
 }
 
 
 function updateFilters() {
+
+
+    province_all_checkbox();
+    gas_all_checkbox();
+
+
+
 
     var provinceFilter = {};
 
@@ -88,5 +137,55 @@ function updateFilters() {
 
     drawLineChart(yearFilter, provinceFilter);
 
+
     console.log("Filters updated");
+}
+
+function gas_all_checkbox(){
+    var gas_all_state = $("#checkbox-TOUS-gas").is(":checked");
+
+    var at_least_one_gas_checked = false;
+
+    gaz_checkboxes.forEach(element => {
+        if($(element).is(':checked')){
+            at_least_one_gas_checked = true;
+        }
+    });
+
+    if (gas_all_state != gas_last_all_state) {
+        
+        gaz_checkboxes.forEach(element => {
+            $(element).prop('checked', !at_least_one_gas_checked);
+        });
+    }
+    else {
+        $("#checkbox-TOUS-gas").prop('checked', at_least_one_gas_checked);
+        gas_all_state = $("#checkbox-TOUS-gas").is(":checked");
+    }
+
+    gas_last_all_state = gas_all_state;
+}
+
+function province_all_checkbox(){
+    var province_all_state = $("#checkbox-TOUS").is(":checked");
+
+    var at_least_one_province_checked = false;
+
+    province_checkboxes.forEach(element => {
+        if($(element).is(':checked')){
+            at_least_one_province_checked = true;
+        }
+    });
+
+    if (province_all_state != province_last_all_state) {
+        
+        province_checkboxes.forEach(element => {
+            $(element).prop('checked', !at_least_one_province_checked);
+        });
+    }
+    else {
+        $("#checkbox-TOUS").prop('checked', at_least_one_province_checked);
+        province_all_state = $("#checkbox-TOUS").is(":checked");
+    }
+    province_last_all_state = province_all_state;
 }

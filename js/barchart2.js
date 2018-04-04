@@ -6,10 +6,19 @@ var barChart2xAxis = undefined;
 var barChart2yAxis = undefined;
 var barChart2Data = undefined;
 var barChart2Svg = undefined;
-
+var barChart2BarWidth = undefined;
+var barChart2tip = undefined;
 
 
 function barchart2(data, localization) {
+
+    barChart2tip = d3.tip()
+      .attr('class', 'd3-tip')
+      .offset([-270, 0])
+      .html(function(d) {
+        return "<span class='d3-tip-text'>Émission:</span> <span class='d3-tip-text-emphasize'>" + d.total + "</span> <strong>kT</strong>";
+      });
+
 
     barChart2Svg = d3.select("#bar-chart2-svg");
 
@@ -24,27 +33,17 @@ function barchart2(data, localization) {
     barChart2x = d3.scale.ordinal().rangeRoundBands([0, barChartWidth], 0.05);
     barChart2y = d3.scale.linear().range([barChartHeight, 0]);
 
+    barChart2x.domain(d3.keys(default_prov_filter));
+    barChart2BarWidth = barChart2x.rangeBand();
+
     barChart2xAxis = d3.svg.axis().scale(barChart2x).orient("bottom");
     barChart2yAxis = d3.svg.axis().scale(barChart2y).orient("left").tickFormat(localization.getFormattedNumber);
 
-    createBar2Data([2004,2015]);
-
     /***** Création du bar chart *****/
     createAxes2();
-    drawBarChart2([2004,2015], {
-        "QC": true,
-        "BC": true,
-        "ON": true,
-        "NS": true,
-        "NB": true,
-        "MB": true,
-        "PE": true,
-        "SK": true,
-        "AB": true,
-        "NL": true,
-        "NT": true,
-        "NU": true
-    });
+    drawBarChart2(default_year_filter, default_prov_filter);
+
+    barChart2Svg.call(barChart2tip);
 }
 
 
@@ -52,7 +51,7 @@ function createBar2Data(yearFilter) {
     
     barChart2Data = [];
 
-    var provinces = ["QC", "ON", "NL", "AB", "BC", "NS", "MB", "PE", "SK", "NT", "NU", "NB"];
+    var provinces = d3.keys(default_prov_filter);
 
     provinces.forEach(prov => {
 
@@ -161,15 +160,17 @@ function drawBarChart2(yearFilter, provinceFilter) {
                     .enter()
                     .append("rect")
                     .attr("class", "bar")
+                    .on("mouseover", barChart2tip.show)
+                    .on("mouseout", barChart2tip.hide)
                     .transition()
                     .duration(1000)
                     .attr("x", function(d) {
-                        return barChart2x(d.province);
+                        return barChart2x(d.province) + (barChart2x.rangeBand() - barChart2BarWidth) / 2;
                     })
                     .attr("y", function(d) {
                         return barChart2y(d.total);
                     })
-                    .attr("width", barChart2x.rangeBand())
+                    .attr("width", barChart2BarWidth)
                     .attr("height", function(d) {
                         return barChartHeight - barChart2y(d.total);
                     });

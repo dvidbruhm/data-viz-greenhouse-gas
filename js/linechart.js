@@ -21,6 +21,17 @@ var lineChartMargin = {
 };
 
 function linechart(data) {
+
+    $(".line").hover(
+        function(event) {
+            // The mouse has entered the element, can reference the element via 'this'
+            $("#line-chart-company").text("hovered");
+        },
+        function (event) {
+            // The mouse has left the element, can reference the element via 'this'
+            $(".line-chart-tip").children("text").text("unhovered");
+        }
+     );
     
     lineChartData = data;
 
@@ -166,5 +177,12 @@ function drawLineChart(yearFilter, provinceFilter) {
                         return lineChartLine(d.years);
                     })
                     .attr("fill", "none")
-                    .attr("clip-path", "url(#clip)");
+                    .attr("clip-path", "url(#clip)")
+                    .on("mouseover", lineChartTip);
+}
+
+function lineChartTip(d) {
+    console.log(d);
+    d3.select("#line-chart-company").text("Company: " + d.company_legal_name);
+    d3.select("#line-chart-facility").text("Facility: " + d.facility_name);
 }

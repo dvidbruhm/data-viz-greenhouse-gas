@@ -37,7 +37,7 @@
 					<br>
 				</div>
 
-				<div style="margin-bottom:30px;"></div>
+				<div class="filter-vertical-space"></div>
 
 				<div class="filter-section">
 					<div class="filter-title-wrapper">
@@ -92,10 +92,15 @@
 							<input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="nu" id="checkbox-NU" onchange="updateFilters()"><span class="checkmark"></span><br>
 						</th>
 					</tr>
+					<tr>
+						<td><label class="checkmark-container">Tous
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="province" value="tous" id="checkbox-TOUS" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th> 
+					</tr>
 				</table>
 				</div>
 
-				<div style="margin-bottom:30px;"></div>
+				<div class="filter-vertical-space"></div>
 
 				<div class="filter-section">
 					<div class="filter-title-wrapper">
@@ -162,6 +167,9 @@
 					<tr>
 						<td><label class="checkmark-container">SF6
 							<input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="sf6" id="checkbox-sf6" onchange="updateFilters()"><span class="checkmark"></span><br>
+						</th>
+						<td><label class="checkmark-container">Tous
+							<input type="checkbox" data-bind="checked: params.availToStream" checked name="gas" value="tous" id="checkbox-TOUS-gas" onchange="updateFilters()"><span class="checkmark"></span><br>
 						</th>
 					</tr>
 				</table>
@@ -270,6 +278,11 @@
 					</div>
 					<div class="tabs">
 						<svg id="line-chart-svg"></svg>
+						<div class="line-chart-tip">
+							<text id="line-chart-company">Company:</text><br>
+							<text id="line-chart-facility">Facility:</text><br>
+							<text id="line-chart-adress">Name:</text><br>
+						</div>
 					</div>
 				</div>
 			</div>
