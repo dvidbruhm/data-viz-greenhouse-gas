@@ -342,7 +342,7 @@ svg {
     stroke-width: 1.5;
   }
 
-  .line:hover {
+  .line-hovered {
     opacity: 1;
     stroke: var(--main-data-color);
     stroke-width: 4;

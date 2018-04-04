@@ -166,21 +166,38 @@ function drawLineChart(yearFilter, provinceFilter) {
                     .attr("fill", "none")
                     .attr("clip-path", "url(#clip)")
                     .on("mouseover", lineChartTip)
+                    .on("click", lineChartClick)
                     .on("mouseout", lineChartTipOut);
 }
 
+var freezed = false;
+var freezed_facility = undefined;
+
+function lineChartClick(d){
+    if (freezed) {
+        if(freezed_facility === d.facility_id){
+            freezed = false;
+        }
+    } else {
+        freezed = true;
+        freezed_facility = d.facility_id;
+    }
+}
+
 function lineChartTipOut (d) {
+    if(!freezed){
     lineChartGroup.selectAll(".circle-tip")
                 .remove();
     lineChartGroup.selectAll(".circle-tip-text")
                 .remove();
     lineChartGroup.selectAll("rect")
                 .remove();
+    d3.select(this).classed("line-hovered", false);
+    }
 }
 
 function lineChartPoints(d) {
 
-    
     lineChartGroup.selectAll("rect")
                 .data(d.years)
                 .enter()         
@@ -230,10 +247,14 @@ function lineChartPoints(d) {
                     .attr("x", function(e) {
                         return lineChartX(e.year) - d3.select("#id" + e.year).node().getComputedTextLength()/2 - 3;
                     })
+                
 }
 
 function lineChartTip(d) {
     
+    if(!freezed){
+    
+    d3.select(this).classed("line-hovered", true);
     lineChartPoints(d);
 
     d3.select("#line-chart-company").text(d.company_legal_name)
@@ -250,4 +271,5 @@ function lineChartTip(d) {
                                     .attr("title", d.contact_phone);
     d3.select("#line-chart-contact-email").text(d.contact_email)
                                     .attr("title", d.contact_email);
+    }
 }
