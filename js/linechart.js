@@ -69,25 +69,12 @@ function linechart(data) {
                             });
 
     createLineChartAxes();
-    drawLineChart([2004,2015], {
-        "QC": true,
-        "BC": true,
-        "ON": true,
-        "NS": true,
-        "NB": true,
-        "MB": true,
-        "PE": true,
-        "SK": true,
-        "AB": true,
-        "NL": true,
-        "NT": true,
-        "NU": true
-    });
+    drawLineChart(default_year_filter, default_prov_filter);
 }
 
 function createLineChartAxes() {
     
-    lineChartX.domain([2004,2015]);
+    lineChartX.domain(default_year_filter);
 
     var maxCount = d3.max(lineChartData, function(d){
         return d3.max(d.years, function(e){
@@ -178,11 +165,89 @@ function drawLineChart(yearFilter, provinceFilter) {
                     })
                     .attr("fill", "none")
                     .attr("clip-path", "url(#clip)")
-                    .on("mouseover", lineChartTip);
+                    .on("mouseover", lineChartTip)
+                    .on("mouseout", lineChartTipOut);
+}
+
+function lineChartTipOut (d) {
+    lineChartGroup.selectAll(".circle-tip")
+                .remove();
+    lineChartGroup.selectAll(".circle-tip-text")
+                .remove();
+    lineChartGroup.selectAll("rect")
+                .remove();
+}
+
+function lineChartPoints(d) {
+
+    
+    lineChartGroup.selectAll("rect")
+                .data(d.years)
+                .enter()         
+                .append("rect")
+                .attr("y", function(e) {
+                    return lineChartY(e.filtered_total_eq) - 16 - 14;
+                })
+                .attr("fill", "black");
+
+    lineChartGroup.selectAll(".circle-tip")
+                .data(d.years)
+                .enter()
+                .append("circle")
+                .attr("class", "circle-tip")
+                .attr("r", 8)
+                .attr("cx", function(e){
+                    return lineChartX(e.year);
+                })
+                .attr("cy", function(e){
+                    return lineChartY(e.filtered_total_eq);
+                })
+                
+    lineChartGroup.selectAll(".circle-tip-text")
+                .data(d.years)
+                .enter()
+                .append("text")
+                .attr("class", "circle-tip-text")
+                .attr("id", function(e){
+                    return "id" + e.year;
+                })
+                .text(function(e) {
+                    return parseInt(e.filtered_total_eq) + " kT";
+                })
+                .attr("x", function(e) {
+                    return lineChartX(e.year);
+                })
+                .attr("y", function(e) {
+                    return lineChartY(e.filtered_total_eq) - 15;
+                })
+                .attr("text-anchor", "middle")
+
+    lineChartGroup.selectAll("rect")
+                    .attr("width", function(e) {
+                        return d3.select("#id" + e.year).node().getComputedTextLength() + 6;
+                    })
+                    .attr("height", 21)
+                    .attr("x", function(e) {
+                        return lineChartX(e.year) - d3.select("#id" + e.year).node().getComputedTextLength()/2 - 3;
+                    })
 }
 
 function lineChartTip(d) {
-    console.log(d);
-    d3.select("#line-chart-company").text("Company: " + d.company_legal_name);
-    d3.select("#line-chart-facility").text("Facility: " + d.facility_name);
+    
+    lineChartPoints(d);
+
+    d3.select("#line-chart-company").text(d.company_legal_name)
+                                    .attr("title", d.company_legal_name);
+    d3.select("#line-chart-facility").text(d.facility_name)
+                                    .attr("title", d.facility_name);
+    d3.select("#line-chart-address").text(d.facility_address + ", " + d.facility_city + ", " + d.facility_province)
+                                    .attr("title", d.facility_address + ", " + d.facility_city + ", " + d.facility_province);
+    d3.select("#line-chart-postal").text(d.facility_postal_code)
+                                    .attr("title", d.facility_postal_code);
+    d3.select("#line-chart-contact-name").text(d.contact_name)
+                                    .attr("title", d.contact_name);
+    d3.select("#line-chart-contact-phone").text(d.contact_phone)
+                                    .attr("title", d.contact_phone);
+    d3.select("#line-chart-contact-email").text(d.contact_email)
+                                    .attr("title", d.contact_email);
 }

@@ -20,18 +20,19 @@ var barChartMargin = {
 
 function barchart1(data, localization) {
 
-    barChart1tip = d3.tip()
-      .attr('class', 'd3-tip')
-      .offset([-270, 0])
-      .html(function(d) {
-        return "<span class='d3-tip-text'>Émission:</span> <span class='d3-tip-text-emphasize'>" + d.total + "</span> <strong>kT</strong>";
-      });
 
     var barChart1Svg = d3.select("#bar-chart1-svg");
     barChart1Svg.select("g").remove();
     
     barChartWidth = barChart1Svg.node().getBoundingClientRect().width - barChartMargin.left - barChartMargin.right;
     barChartHeight = barChart1Svg.node().getBoundingClientRect().height - barChartMargin.top - barChartMargin.bottom;
+
+    barChart1tip = d3.tip()
+      .attr('class', 'd3-tip')
+      .offset([-barChartHeight +100, 0])
+      .html(function(d) {
+        return "<span class='d3-tip-text'>Émission:</span> <span class='d3-tip-text-emphasize'>" + d.total + "</span> <strong>kT</strong>";
+      });
 
     /***** Création des éléments du diagramme à barres *****/
     barChart1Svg.attr("width", barChartWidth + barChartMargin.left + barChartMargin.right)
