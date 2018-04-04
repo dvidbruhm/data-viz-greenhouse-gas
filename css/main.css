@@ -295,6 +295,13 @@ svg {
     height: 750px;
 	width: 750px;
   }
+
+@media only screen and (max-height: 800px) {
+  .svg_gaz {
+    height: 550px;
+	  width: 550px;
+  }
+}
   
  .div-gaz11 {
 	height: 100%;
