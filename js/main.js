@@ -28,6 +28,7 @@ var globalData = undefined;
             main_vizgaz();
             main_barchart(data, localization);
             linechart(data);
+			radar(data);
 
             //TODO
             $(window).resize(function(){
