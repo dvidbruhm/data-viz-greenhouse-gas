@@ -93,8 +93,6 @@ li {
 	width:100%;
 	height:80%;
 	position: absolute;
-	top: 47%;
-	transform: translateY(-47%);
 	line-height: 1.2;
 }
 .vertical-left {

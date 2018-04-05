@@ -135,7 +135,9 @@ function updateFilters() {
     drawBarChart2(yearFilter, provinceFilter);
     drawBarChart3(gasFilter, yearFilter, provinceFilter);
 
-    drawLineChart(yearFilter, provinceFilter);
+    updateLineChartData(yearFilter, provinceFilter);
+    updateXAxis();
+    drawLineChart();
 
 
     console.log("Filters updated");

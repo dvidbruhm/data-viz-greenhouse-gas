@@ -14,7 +14,7 @@ function barchart2(data, localization) {
 
     barChart2tip = d3.tip()
       .attr('class', 'd3-tip')
-      .offset([-270, 0])
+      .offset([-25, 0])
       .html(function(d) {
         return "<span class='d3-tip-text'>Émission:</span> <span class='d3-tip-text-emphasize'>" + d.total + "</span> <strong>kT</strong>";
       });

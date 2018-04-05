@@ -9,14 +9,18 @@ var lineChartXAxis = undefined;
 var lineChartYAxis = undefined;
 var lineChartLine = undefined;
 var lineChartData = undefined;
+var lineChartBrush = undefined;
 
 var currentYearFilter = undefined;
+var currentProvFilter = undefined;
+var lineChartCurrentData = undefined;
+
 
 /***** Configuration *****/
 var lineChartMargin = {
     top: 55,
     right: 50,
-    bottom: 80,
+    bottom: 50,
     left: 150
 };
 
@@ -37,16 +41,17 @@ function linechart(data) {
 
     var lineChartSvg = d3.select("#line-chart-svg");
     lineChartSvg.select("g").remove();
-    
-    lineChartWidth = lineChartSvg.node().getBoundingClientRect().width - lineChartMargin.left - lineChartMargin.right;
-    lineChartHeight = lineChartSvg.node().getBoundingClientRect().height - lineChartMargin.top - lineChartMargin.bottom;
+
+    lineChartWidth = parseFloat(lineChartSvg.node().getBoundingClientRect().width) - lineChartMargin.left - lineChartMargin.right;
+    lineChartHeight = parseFloat(lineChartSvg.node().getBoundingClientRect().height) - lineChartMargin.top - lineChartMargin.bottom;
+
 
     /***** Création des éléments du diagramme à barres *****/
     lineChartSvg.attr("width", lineChartWidth + lineChartMargin.left + lineChartMargin.right)
                 .attr("height", lineChartHeight + lineChartMargin.top + lineChartMargin.bottom);
-
+                
     lineChartGroup = lineChartSvg.append("g")
-                                    .attr("transform", "translate(" + barChartMargin.left + "," + barChartMargin.top + ")");
+                                    .attr("transform", "translate(" + lineChartMargin.left + "," + lineChartMargin.top + ")");
     
     /***** Échelles *****/
     lineChartX = d3.scale.linear().range([0, lineChartWidth]);
@@ -68,8 +73,50 @@ function linechart(data) {
                                 return lineChartY(d.filtered_total_eq);
                             });
 
+
+    
+    
+    lineChartBrush = d3.svg.brush()
+        .y(lineChartY)
+        .on("brushend", brushEnd);
+    
+    lineChartGroup.append("g")
+        .attr("class", "brush")
+        .call(lineChartBrush)
+        .selectAll("rect")
+            .attr("width", lineChartWidth);
+
+
     createLineChartAxes();
-    drawLineChart(default_year_filter, default_prov_filter);
+    updateLineChartData(default_year_filter, default_prov_filter);
+    updateXAxis();
+    updateYAxisOriginal();
+    drawLineChart();
+
+    
+}
+
+function resetBrushButton() {
+    updateYAxisOriginal();
+    updateXAxis();
+    drawLineChart();
+}
+
+function brushEnd(){
+
+    if((lineChartBrush.extent()[1] - lineChartBrush.extent()[0]) / 
+        (lineChartY.domain()[1] - lineChartY.domain()[0]) < 0.05) {
+            d3.select(".brush").call(lineChartBrush.clear());
+            return
+        }
+
+    lineChartY.domain(lineChartBrush.extent());
+    updateYAxis();
+
+    drawLineChart();
+    
+    d3.select(".brush").call(lineChartBrush.clear());
+
 }
 
 function createLineChartAxes() {
@@ -109,57 +156,90 @@ function createLineChartAxes() {
 
 }
 
-function drawLineChart(yearFilter, provinceFilter) {
-
-    currentYearFilter = yearFilter;
-
-    var currentdata = lineChartData.slice();
-
-    currentdata = currentdata.filter(function(d){
-                                        return provinceFilter[d.facility_province];
-                                    });
-    
-    lineChartX.domain(yearFilter);
-
-    var maxCount = d3.max(currentdata, function(d){
+function updateYAxisOriginal() {
+    var maxCount = d3.max(lineChartCurrentData, function(d){
         return d3.max(d.years, function(e){
             return e.filtered_total_eq;
         });
     });
-
     lineChartY.domain([0, maxCount]);
-    
-    /* Axis update */
-    lineChartXAxis = d3.svg.axis().scale(lineChartX).orient("bottom").tickFormat(d3.format(""))
-                        .tickValues(Array(yearFilter[1] - yearFilter[0] + 1).fill(1).map((x, y) => x + y + yearFilter[0] - 1));;
+    updateYAxis();
+}
+
+function updateYAxis() {
+
     lineChartYAxis = d3.svg.axis().scale(lineChartY).orient("left");
-    
-    lineChartGroup.select(".x")
-                    .transition(1000)
-                    .call(lineChartXAxis);
-    
-                    
-    lineChartGroup.select(".x")
-                    .selectAll("text")
-                    .style("font-size", "5mm");
     
     lineChartGroup.select(".y")
                     .transition(1000)
                     .call(lineChartYAxis);
     
+                    
     lineChartGroup.select(".y")
                     .selectAll("text")
                     .style("font-size", "5mm");
+    
+    lineChartGroup.append("g").select(".y")
+                    .transition(1000)
+                    .call(lineChartYAxis);
+    
+    lineChartGroup.append("g").select(".y")
+                    .selectAll("text")
+                    .style("font-size", "5mm");
+}
+
+function updateXAxis() {
+    
+    lineChartX.domain(currentYearFilter);
+
+    lineChartXAxis = d3.svg.axis().scale(lineChartX).orient("bottom").tickFormat(d3.format(""))
+                        .tickValues(Array(currentYearFilter[1] - currentYearFilter[0] + 1).fill(1).map((x, y) => x + y + currentYearFilter[0] - 1));;
+    
+    lineChartGroup.select(".x")
+                    .transition(1000)
+                    .call(lineChartXAxis);
+        
+                        
+    lineChartGroup.select(".x")
+                    .selectAll("text")
+                    .style("font-size", "5mm");
+    
+}
+
+function updateLineChartData(yearFilter, provinceFilter) {
+
+    lineChartCurrentData = lineChartData.slice();
+    lineChartCurrentData = lineChartCurrentData.filter(function(d){
+        return provinceFilter[d.facility_province];
+    });
+    currentYearFilter = yearFilter;
+    currentProvFilter = provinceFilter;
+}
+
+
+function drawLineChart() {
 
     lineChartGroup.selectAll(".line").remove();
 
     lineChartGroup.append("g")
                     .attr("class", "lines")
                     .selectAll("path")
-                    .data(currentdata)
+                    .data(lineChartCurrentData)
                     .enter()
                     .append("path")
-                    .attr("class", "line")
+                    .attr("class", function(d, i){
+                        var min_total = d3.min(d.years, function(e){
+                            return e.filtered_total_eq;
+                        });
+                        var max_total = d3.max(d.years, function(e){
+                            return e.filtered_total_eq;
+                        });
+                        if (min_total < lineChartY.domain()[0] || 
+                            max_total > lineChartY.domain()[1]) {
+                            return "line-none";
+                        }
+                        return "line";
+                    })
                     .attr("d", function(d) {
                         return lineChartLine(d.years);
                     })
@@ -168,6 +248,8 @@ function drawLineChart(yearFilter, provinceFilter) {
                     .on("mouseover", lineChartTip)
                     .on("click", lineChartClick)
                     .on("mouseout", lineChartTipOut);
+    
+
 }
 
 var freezed = false;
@@ -190,7 +272,9 @@ function lineChartTipOut (d) {
                 .remove();
     lineChartGroup.selectAll(".circle-tip-text")
                 .remove();
-    lineChartGroup.selectAll("rect")
+    lineChartGroup.selectAll(".circle-tip-bg")
+                .remove();
+    lineChartGroup.selectAll(".circle-tip-bg2")
                 .remove();
     d3.select(this).classed("line-hovered", false);
     }
@@ -198,12 +282,26 @@ function lineChartTipOut (d) {
 
 function lineChartPoints(d) {
 
-    lineChartGroup.selectAll("rect")
+    var border = 2;
+    var y_offset = 35;
+
+    lineChartGroup.selectAll(".circle-tip-bg2")
+                .data(d.years)
+                .enter()     
+                .append("rect")
+                .attr("class", "circle-tip-bg2")
+                .attr("y", function(e) {
+                    return lineChartY(e.filtered_total_eq) - y_offset - border;
+                })
+                .attr("fill", "orange");
+
+    lineChartGroup.selectAll(".circle-tip-bg")
                 .data(d.years)
                 .enter()         
                 .append("rect")
+                .attr("class", "circle-tip-bg")
                 .attr("y", function(e) {
-                    return lineChartY(e.filtered_total_eq) - 16 - 14;
+                    return lineChartY(e.filtered_total_eq) - y_offset;
                 })
                 .attr("fill", "black");
 
@@ -235,11 +333,20 @@ function lineChartPoints(d) {
                     return lineChartX(e.year);
                 })
                 .attr("y", function(e) {
-                    return lineChartY(e.filtered_total_eq) - 15;
+                    return lineChartY(e.filtered_total_eq) - y_offset + 15;
                 })
                 .attr("text-anchor", "middle")
 
-    lineChartGroup.selectAll("rect")
+    lineChartGroup.selectAll(".circle-tip-bg2")
+                    .attr("width", function(e) {
+                        return d3.select("#id" + e.year).node().getComputedTextLength() + 6 + border + border;
+                    })
+                    .attr("height", 21 + border + border)
+                    .attr("x", function(e) {
+                        return lineChartX(e.year) - d3.select("#id" + e.year).node().getComputedTextLength()/2 - 3 - border;
+                    })
+    
+    lineChartGroup.selectAll(".circle-tip-bg")
                     .attr("width", function(e) {
                         return d3.select("#id" + e.year).node().getComputedTextLength() + 6;
                     })

@@ -254,6 +254,7 @@
 					</div>
 					<div class="tabs">
 						<svg id="line-chart-svg"></svg>
+						<button type="button" class="clear-brush-button" onclick="resetBrushButton()">Reset brush</button> 
 						<div class="line-chart-tip">
 							<text class="line-chart-tip-title">Company: </text><text id="line-chart-company"></text><br>
 							<text class="line-chart-tip-title">Facility: </text><text id="line-chart-facility"></text><br>
@@ -292,7 +293,7 @@
 		<script type="text/javascript" src="libs/localization-fr.js"></script>
 		<script type="text/javascript" src="libs/auto-complete.min.js"></script>
 		<script type="text/javascript" src="libs/search-bar.js"></script>
-	  
+		<script src="https://d3js.org/d3-brush.v1.min.js"></script>
 
 		<script src="libs/jquery-2.1.1.js"></script>
 		<script src="libs/jquery-ui.min.js"></script>

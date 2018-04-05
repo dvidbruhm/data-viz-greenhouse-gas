@@ -276,6 +276,21 @@ svg {
   height: 100%;
 }
 
+.clear-brush-button {
+  width: 150px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 20px;
+
+  color: var(--main-text-color);
+  background: var(--main-bg-color-opacity);
+  border: 2px solid var(--main-data-color);
+  text-align: center;
+  position: absolute;
+  top: 0;
+  right: 350px;
+}
+
 .line-chart-tip {
   width: 300px;
   height: 152px;
@@ -342,6 +357,10 @@ svg {
     stroke-width: 1.5;
   }
 
+  .line-none {
+    display: none;
+  }
+
   .line-hovered {
     opacity: 1;
     stroke: var(--main-data-color);
@@ -377,6 +396,17 @@ svg {
   
   #circle:hover .disabled {
     fill-opacity: 0.1;
+  }
+
+  .brush-rect {
+    fill: var(--main-data-color);
+  }
+
+  .brush .extent {
+    stroke: white;
+    fill-opacity: .125;
+    shape-rendering: crispEdges;
+    fill: var(--main-data-color);
   }
   
 /***** Tooltip *****/
