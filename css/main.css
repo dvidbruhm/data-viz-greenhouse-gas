@@ -285,10 +285,16 @@ svg {
   color: var(--main-text-color);
   background: var(--main-bg-color-opacity);
   border: 2px solid var(--main-data-color);
+  border-radius: 3px;
   text-align: center;
   position: absolute;
   top: 0;
-  right: 350px;
+  right: 354px;
+  margin: 2px;
+}
+
+.clear-brush-button:active {
+  background-color: var(--sec-data-color-opacity);
 }
 
 .line-chart-tip {
@@ -305,6 +311,7 @@ svg {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-top: 2px;
 }
 
 .line-chart-tip-title {
