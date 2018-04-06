@@ -82,6 +82,7 @@ function linechart(data) {
     
     lineChartGroup.append("g")
         .attr("class", "brush")
+        .attr("id", "brush")
         .call(lineChartBrush)
         .selectAll("rect")
             .attr("width", lineChartWidth);
@@ -256,13 +257,16 @@ var freezed = false;
 var freezed_facility = undefined;
 
 function lineChartClick(d){
+    console.log(d3.select("#brush"));
     if (freezed) {
         if(freezed_facility === d.facility_id){
             freezed = false;
+            d3.select("#brush").classed("brush-disabled", false);
         }
     } else {
         freezed = true;
         freezed_facility = d.facility_id;
+        d3.select("#brush").classed("brush-disabled", true);
     }
 }
 

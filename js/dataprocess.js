@@ -53,12 +53,19 @@
 50: "SF6 (tonnes CO2e / tonnes �q, CO2)"
 51: "Total Emissions (tonnes CO2e) / �missions totales (tonnes �q, CO2)"
 */
+
+var code_list = []
+
 function cleandata(rawdata){
     var data = [];
     var keys = Object.keys(rawdata[0]);
 
     rawdata.forEach(element => {
         var d = data.find(x => x.facility_id === element[keys[9]]);
+        if (!code_list.includes(element[keys[10]].substring(0, 2)))
+        {
+            code_list.push(element[keys[10]].substring(0, 2));
+        }
         if(!d) // facility not already in list
         {
             data.push(
@@ -111,7 +118,7 @@ function cleandata(rawdata){
                     facility_province: element[keys[5]],
                     facility_postal_code: element[keys[6]],
                     facility_id: element[keys[9]],
-                    facility_code: element[keys[10]],
+                    facility_code: element[keys[10]].substring(0, 2),
                     facility_code_description: element[keys[11]],
                     company_legal_name: element[keys[12]],
                     company_trade_name: element[keys[13]],
@@ -139,7 +146,7 @@ function cleandata(rawdata){
                 d.facility_province= element[keys[5]];
                 d.facility_postal_code= element[keys[6]];
                 d.facility_id= element[keys[9]];
-                d.facility_code= element[keys[10]];
+                d.facility_code= element[keys[10]].substring(0, 2);
                 d.facility_code_description= element[keys[11]];
                 d.company_legal_name= element[keys[12]];
                 d.company_trade_name= element[keys[13]];
