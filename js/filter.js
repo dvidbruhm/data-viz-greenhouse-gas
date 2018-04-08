@@ -90,9 +90,6 @@ function updateFilters() {
     province_all_checkbox();
     gas_all_checkbox();
 
-
-
-
     var provinceFilter = {};
 
     province_checkboxes.forEach(element => {
@@ -138,6 +135,9 @@ function updateFilters() {
     updateLineChartData(yearFilter, provinceFilter);
     updateXAxis();
     drawLineChart();
+
+    createRadarData(filteredData, yearFilter);
+    drawRadarChart();
 
 
     console.log("Filters updated");

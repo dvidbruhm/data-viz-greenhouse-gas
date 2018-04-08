@@ -451,7 +451,18 @@ svg {
     stroke: var(--main-data-color);
   }
   .radar-chart .tooltip {
-    color: var(--main-text-color);
+    display: none;
+  }
+  .radar-tip-text {
+    font-size: 14px;
+    fill: var(--main-text-color);
+    background: black;
+  }
+
+  .radar-prov-label {
+    font-size: 20px;
+    fill: var(--main-text-color);
+    background: black;
   }
   
 /***** Tooltip *****/

@@ -23,16 +23,17 @@ var radarChartMargin = {
     left: 50
 };
 
-var radarDataSet = []
-
-RadarChart.defaultConfig.radius = 7;
-
 var circle_width = 5;
 var circle_width_hovered = 10;
 
+var radarDataSet = [];
+var radarChartGroup = undefined;
+var radarChart = undefined;
+var radarConfig = undefined;
+
+
 function radar(data) {
 
-	createRadarData(data, default_year_filter);
 
 	var radarChartSvg = d3.select("#svg-radar");
     radarChartSvg.select("g").remove();
@@ -49,53 +50,170 @@ function radar(data) {
                                     .attr("transform", "translate(" + radarChartMargin.left + "," + radarChartMargin.top + ")");
 	
 
-	var radarChart = RadarChart.chart();
+	radarChart = RadarChart.chart();
 								
 	//radarChart.config({w: radarChartWidth / 4, h: radarChartHeight / 3, axisText: true, levels: 5, circles: true});
-	var cfg = radarChart.config();
+	radarConfig = radarChart.config();
 	
-	cfg.w = radarChartWidth / 4;
-	cfg.h = radarChartHeight / 3;
-	cfg.radius = circle_width;
-	cfg.levels = 3;
-	cfg.minValue = -10;
-	cfg.axisLine = true;
-	cfg.axisText = true;
-	cfg.color = function() {};
-	cfg.factor = 1;
-	cfg.factorLegend = 0.7;
+	radarConfig.w = radarChartWidth / 4;
+	radarConfig.h = radarChartHeight / 3;
+	radarConfig.radius = circle_width;
+	radarConfig.levels = 3;
+	radarConfig.minValue = -10;
+	radarConfig.maxValue = 100;
+	radarConfig.axisLine = true;
+	radarConfig.axisText = true;
+	radarConfig.color = function() {};
+	radarConfig.factor = 0.8;
+	radarConfig.factorLegend = 0.9;
+	radarConfig.transitionDuration = 2000;
+
+	var provinces = d3.keys(default_prov_filter);
+
+	for(var i = 0; i < 12; i++) {
+		var prov = provinces[i];
+		console.log("allo")
+		radarChartGroup.append("text")
+						.attr("x", function(){
+							return ((i % 4) * radarConfig.w) + 20;
+						})
+						.attr("y", function(){
+							return ((parseInt(i / 4)) % 3 * radarConfig.h) + 20;
+						})
+						.text(function(){
+							return prov;
+						})
+						.classed("radar-prov-label", true);
+
+	}
+  
+
+	createRadarData(data, default_year_filter);
+	drawRadarChart();
+}
+
+var olddata = []
+function drawRadarChart(){
 
 	console.log(radarDataSet);
+	radarChartGroup.selectAll('g.radar-chart').remove();
 
-	radarChartGroup.selectAll('.radar-chart')
+	radarChartGroup.selectAll('g.radar-chart')
 					.data(radarDataSet)
 					.enter()
 					.append('g')
 					.classed('radar-chart', true)
 					.attr('transform', function(d, i) { 
-						return 'translate('+ ((i % 4) * cfg.w) +','+ ((parseInt(i / 4)) % 3 * cfg.h) +')'; 
+						return 'translate('+ ((i % 4) * radarConfig.w) +','+ ((parseInt(i / 4)) % 3 * radarConfig.h) +')'; 
 					})
 					.call(radarChart);
-	
+
+
+
 	radarChartGroup.selectAll(".circle")
-					.on("mouseover", function(d){
-						radarChartGroup.selectAll(".circle")
-										.attr("stroke", function(e) {
-											if (d[0].axis === e[0].axis){
-												d3.select(this).classed("hovered", true).attr("r", circle_width_hovered);
-											}
-										});
-					})
-					.on("mouseout", function(d){
-						radarChartGroup.selectAll(".circle")
-										.attr("stroke", function(e) {
-											if (d[0].axis === e[0].axis){
-												d3.select(this).classed("hovered", false).attr("r", circle_width);
-											}
-										});
-					});
+		.on("mouseover", function(d){
+			radarChartGroup.selectAll(".circle")
+							.attr("stroke", function(e) {
+								if (d[0].axis === e[0].axis){
+									var x = d3.select(this).attr("cx");
+									var y = d3.select(this).attr("cy");
+									var elem = d3.select(this).node();
+									var pos = convertCoordsToAbsolute(elem,x,y);
+
+									var value = e[0].value;
+
+									var y_offset = 25;
+									var x_offset = 8;
+									var border = 2;
+
+									d3.select(this)
+										.classed("hovered", true)
+										.attr("r", circle_width_hovered);
+
+									radarChartGroup.append("rect")
+												.attr("class", "radar-tip-bg2")
+												.attr("id", "radar-tip-bg2" + parseInt(pos.x + pos.y))
+												.attr("y", function() {
+													var y_offset2 = 0;
+													if(e[0].axis === "Extraction minière")
+														y_offset2 += 0;
+													return pos.y - y_offset - border - y_offset2;
+												})
+												.attr("fill", "orange");
+
+									radarChartGroup.append("rect")
+												.attr("class", "radar-tip-bg")
+												.attr("id", "radar-tip-bg" + parseInt(pos.x + pos.y))
+												.attr("y", function() {
+													var y_offset2 = 0;
+													if(e[0].axis === "Extraction minière")
+														y_offset2 += 0;
+													return pos.y - y_offset - y_offset2;
+												})
+												.attr("fill", "black");
+
+									radarChartGroup.append("text")
+												.attr("class", "radar-tip-text")
+												.text(function() {
+													return value.toFixed(2) + " %";
+												})
+												.attr("id", "radar-text-id" + parseInt(pos.x + pos.y))
+												.attr("text-anchor", "middle")
+												.attr("x", function() {
+													return pos.x + circle_width_hovered/2 + x_offset;
+												})
+												.attr("y", function() {
+													var y_offset2 = 0;
+													if(e[0].axis === "Extraction minière")
+														y_offset2 += 0;
+													return pos.y - y_offset + 15 - y_offset2;
+												});
+									
+									d3.select("#radar-tip-bg2" + parseInt(pos.x + pos.y))
+												.attr("width", function() {
+													return d3.select("#radar-text-id" + parseInt(pos.x + pos.y)).node().getComputedTextLength() + 15 + border + border;
+												})
+												.attr("height", 21 + border + border)
+												.attr("x", function() {
+													return pos.x - d3.select("#radar-text-id" + parseInt(pos.x + pos.y)).node().getComputedTextLength()/2 - 3 - border + x_offset;
+												});
+								
+									d3.select("#radar-tip-bg" + parseInt(pos.x + pos.y))
+												.attr("width", function() {
+													return d3.select("#radar-text-id" + parseInt(pos.x + pos.y)).node().getComputedTextLength() + 15;
+												})
+												.attr("height", 21)
+												.attr("x", function() {
+													return pos.x - d3.select("#radar-text-id" + parseInt(pos.x + pos.y)).node().getComputedTextLength()/2 - 3 + x_offset;
+												});
+								}
+							});
+		})
+		.on("mouseout", function(d){
+			radarChartGroup.selectAll(".circle")
+							.attr("stroke", function(e) {
+								if (d[0].axis === e[0].axis){
+									radarChartGroup.selectAll(".radar-tip-text").remove();
+									radarChartGroup.selectAll(".radar-tip-bg").remove();
+									radarChartGroup.selectAll(".radar-tip-bg2").remove();
+									d3.select(this).classed("hovered", false).attr("r", circle_width);
+								}
+							});
+		});
 
 }
+
+function convertCoordsToAbsolute(elem,x,y) {
+
+	var offset = radarChartGroup.node().getBoundingClientRect();
+  
+	var matrix = elem.getScreenCTM();
+  
+	return {
+	  x: (matrix.a * x) + (matrix.c * y) + matrix.e - offset.left,
+	  y: (matrix.b * x) + (matrix.d * y) + matrix.f - offset.top
+	};
+  }
 
 
 
@@ -153,7 +271,7 @@ function createRadarData(data, year_filter) {
 			axesTemp.push(
 				{
 				axis: naics_codes[code],
-				value: (code_sum_temp / prov_sum) * 100
+				value: (prov_sum > 0.00001 ? (code_sum_temp / prov_sum) * 100 : 0)
 				}
 			)
 		});

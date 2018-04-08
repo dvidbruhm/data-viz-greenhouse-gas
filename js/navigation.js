@@ -6,6 +6,7 @@ $(function() {
 
       var ref = panels[i].attr("data-section-name");
       if(ref === "home" || ref === "second" || ref === "third") {
+        $( "#filter-province-section" ).show(1000);
         $("#filter-panel").css("pointer-events", "none");
         $( "#filter-panel" ).animate({
           opacity: 0
@@ -13,11 +14,16 @@ $(function() {
           
         });
       } else {
+        $( "#filter-province-section" ).show(1000);
         $( "#filter-panel" ).animate({
           opacity: 1
         }, 1000, function() {
           $("#filter-panel").css("pointer-events", "auto");
         });
+      }
+
+      if(ref === "sixth") {
+        $( "#filter-province-section" ).hide(1000);
       }
 
       $(".pagination .active").removeClass("active");
