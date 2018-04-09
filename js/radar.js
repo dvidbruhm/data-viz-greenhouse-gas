@@ -318,5 +318,11 @@ function radarChartLegend() {
 
 	d3.select("#svg-radar-legend.polygon").attr("stroke", "rgba(0,0,0,0)");
 
+	d3.selectAll("#svg-radar-legend text")
+		.text(function(d){
+			console.log(d)
+			return d[0].name.replace(" ", "\n");
+		})
+
 
 }

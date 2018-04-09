@@ -479,6 +479,10 @@ svg {
     font-size: 12px;  
   }
 
+  #svg-radar-legend text {
+    font-size: 8px;
+  }
+
   #svg-radar-legend polygon {
     stroke: rgba(0,0,0,0);
   }

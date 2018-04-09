@@ -6,14 +6,15 @@ $(function() {
 
       var ref = panels[i].attr("data-section-name");
 
+      $( "#filter-panel" ).show(0);
+
       if(ref === "home" || ref === "second" || ref === "third") {
-        console.log("allo");
-        $( "#filter-panel" ).hide(500);
+        $( "#filter-year-section" ).hide(500);
         $( "#filter-province-section" ).hide(500);
         $( "#filter-gaz-section" ).hide(500);
         $( "#filter-radar-legend" ).hide(500);
       } else {
-        $( "#filter-panel" ).show(500);
+        $( "#filter-year-section" ).show(500);
         $( "#filter-province-section" ).show(500);
         $( "#filter-gaz-section" ).show(500);
         $( "#filter-radar-legend" ).hide(500);
