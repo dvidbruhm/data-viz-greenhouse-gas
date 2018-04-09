@@ -95,6 +95,7 @@
 
 .page-title {
   font-size: 4vmin;
+  color: var(--main-data-color);
 }
 
 

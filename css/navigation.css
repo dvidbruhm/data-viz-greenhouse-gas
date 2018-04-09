@@ -60,6 +60,7 @@ h1 {
 }
 h2 {
 	font-size:5em;
+	color: var(--main-data-color);
 }
 h3 {
 	font-size:3em;
@@ -88,6 +89,13 @@ li {
 	margin-left:auto; 
 	margin-right:auto
 }
+
+.horizontal-center {
+	text-align: center;
+	vertical-align: middle;
+	line-height: 100%;  
+}
+
 .vertical-center {
 	text-align:center;
 	width:100%;
