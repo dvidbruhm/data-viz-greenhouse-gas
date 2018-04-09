@@ -5,14 +5,27 @@
 
 var naics_codes = {
 	"21": "Extraction minière",
+	"3": "Fabrication",
 	"22": "Services publics",
-	"31": "Fabrication 1",
-	"32": "Fabrication 2",
-	"33": "Fabrication 3",
 	"48": "Transport",
 	"56": "Services administratifs",
 	"61": "Services d'enseignement",
 	"91": "Administrations publiques"
+}
+
+var provFull = {
+	"QC": "Québec",
+	"BC": "Colombie-Britannique",
+	"NB": "Nouveau-Brunswick",
+	"AB": "Alberta",
+	"PE": "Ile-du-Prince-Edouard",
+	"MB": "Manitoba",
+	"SK": "Saskatchewan",
+	"NS": "Nouvelle-Écosse",
+	"NL": "Terreneuve",
+	"ON": "Ontario",
+	"NT": "Territoire du Nord-Ouest",
+	"NU": "Nunavut"
 }
 
 /***** Configuration *****/
@@ -61,7 +74,7 @@ function radar(data) {
 	radarConfig.axisLine = true;
 	radarConfig.axisText = false;
 	radarConfig.color = function() {};
-	radarConfig.factor = 0.9;
+	radarConfig.factor = 0.8;
 	radarConfig.transitionDuration = 2000;
 
 	var provinces = d3.keys(default_prov_filter);
@@ -76,7 +89,7 @@ function radar(data) {
 							return ((parseInt(i / 4)) % 3 * radarConfig.h) + 20;
 						})
 						.text(function(){
-							return prov;
+							return provFull[prov];
 						})
 						.classed("radar-prov-label", true);
 
@@ -85,6 +98,8 @@ function radar(data) {
 
 	createRadarData(data, default_year_filter);
 	drawRadarChart();
+	
+	
 }
 
 function drawRadarChart(){
@@ -100,8 +115,7 @@ function drawRadarChart(){
 						return 'translate('+ ((i % 4) * radarConfig.w) +','+ ((parseInt(i / 4)) % 3 * radarConfig.h) +')'; 
 					})
 					.call(radarChart);
-
-
+	
 
 	radarChartGroup.selectAll(".circle")
 		.on("mouseover", function(d){
