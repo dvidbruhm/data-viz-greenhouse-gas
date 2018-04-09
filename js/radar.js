@@ -55,7 +55,7 @@ function radar(data) {
 	radarConfig.w = radarChartWidth / 4;
 	radarConfig.h = radarChartHeight / 3;
 	radarConfig.radius = circle_width;
-	radarConfig.levels = 2;
+	radarConfig.levels = 1;
 	radarConfig.minValue = -10;
 	radarConfig.maxValue = 100;
 	radarConfig.axisLine = true;

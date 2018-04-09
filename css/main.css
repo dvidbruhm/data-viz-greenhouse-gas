@@ -445,7 +445,8 @@ svg {
     text-anchor: middle;
   }
   .radar-chart .level-group-0 {
-    stroke: var(--main-text-color);
+    stroke: var(--sec-data-color);
+    opacity: 0.5;
   }
   .radar-chart .level-group-1 {
     stroke: var(--sec-data-color);
@@ -455,6 +456,9 @@ svg {
   }
   .radar-chart .tooltip {
     display: none;
+  }
+  .radar-chart .axis {
+    opacity: 0.5;
   }
   .radar-tip-text {
     font-size: 14px;
