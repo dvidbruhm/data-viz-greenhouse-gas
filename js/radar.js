@@ -99,7 +99,6 @@ function radar(data) {
 	createRadarData(data, default_year_filter);
 	drawRadarChart();
 	
-	
 }
 
 function drawRadarChart(){
