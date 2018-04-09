@@ -444,7 +444,7 @@ svg {
   .radar-chart .legend {
     text-anchor: middle;
   }
-  .radar-chart .level-group-0 {
+  #svg-radar .radar-chart .level-group-0 {
     stroke: var(--sec-data-color);
     opacity: 0.5;
   }
@@ -457,7 +457,7 @@ svg {
   .radar-chart .tooltip {
     display: none;
   }
-  .radar-chart .axis {
+  #svg-radar .radar-chart .axis {
     opacity: 0.5;
   }
   .radar-tip-text {
@@ -472,6 +472,9 @@ svg {
     background: black;
   }
 
+  #svg-radar-legend .radar-chart .level-group-0 {
+    stroke: var(--sec-data-color);
+  }
   #svg-radar-legend {
     font-size: 12px;  
   }

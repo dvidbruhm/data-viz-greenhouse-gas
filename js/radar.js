@@ -301,7 +301,7 @@ function radarChartLegend() {
 		h: legendChartWidth,
 		minValue: 0,
 		maxValue: 100,
-		levels: 2,
+		levels: 1,
 		factor: 0.5,
 		factorLegend: 0.7,
 		radius: 0,
