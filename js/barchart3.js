@@ -34,7 +34,9 @@ function barchart3(data, localization) {
     barChart3x.domain(d3.keys(default_gas_filter));
     barChart3BarWidth = barChart3x.rangeBand();
 
-    barChart3xAxis = d3.svg.axis().scale(barChart3x).orient("bottom");
+    barChart3xAxis = d3.svg.axis().scale(barChart3x).orient("bottom").tickFormat(function(d, i){
+        return "1";
+    });
     barChart3yAxis = d3.svg.axis().scale(barChart3y).orient("left").tickFormat(localization.getFormattedNumber);
 
 
@@ -103,7 +105,7 @@ function createAxes3() {
                     .attr("x", 0)
                     .attr("y", -10)
                     .style("font-size", "6mm")
-                    .text("CO2 équivalent [kT]")
+                    .text("CO\u2082 équivalent [kT]")
                     .attr("text-anchor", "middle");
 }
 
@@ -132,7 +134,9 @@ function drawBarChart3(gasFilter, yearFilter, provinceFilter) {
     barChart3y.domain([0, maxCount]);
 
     /* Axis update */
-    barChart3xAxis = d3.svg.axis().scale(barChart3x).orient("bottom");
+    barChart3xAxis = d3.svg.axis().scale(barChart3x).orient("bottom").tickFormat(function(d, i){
+        return d.toUpperCase();
+    });
     barChart3yAxis = d3.svg.axis().scale(barChart3y).orient("left").tickFormat(localization.getFormattedNumber);
 
     barChart3Group.select(".x")

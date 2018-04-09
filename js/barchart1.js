@@ -14,7 +14,7 @@ var barChart1tip = undefined;
 var barChartMargin = {
     top: 55,
     right: 50,
-    bottom: 50,
+    bottom: 60,
     left: 150
 };
 
@@ -113,7 +113,7 @@ function createAxes1() {
                     .attr("x", 0)
                     .attr("y", -10)
                     .style("font-size", "6mm")
-                    .text("CO2 équivalent [kT]")
+                    .text("CO\u2082 équivalent [kT]")
                     .attr("text-anchor", "middle");
 }
 

@@ -98,12 +98,14 @@ function linechart(data) {
 }
 
 function resetBrushButton() {
+    lineChartUnfreeze();
     updateYAxisOriginal();
     updateXAxis();
     drawLineChart();
 }
 
 function brushEnd(){
+    lineChartUnfreeze();
 
     if((lineChartBrush.extent()[1] - lineChartBrush.extent()[0]) / 
         (lineChartY.domain()[1] - lineChartY.domain()[0]) < 0.05) {
@@ -153,7 +155,7 @@ function createLineChartAxes() {
                     .attr("x", 0)
                     .attr("y", -10)
                     .style("font-size", "6mm")
-                    .text("CO2 équivalent [kT]")
+                    .text("CO\u2082 équivalent [kT]")
                     .attr("text-anchor", "middle");
 
 }
@@ -264,7 +266,6 @@ function lineChartUnfreeze() {
 }
 
 function lineChartClick(d){
-    console.log(d3.select("#brush"));
     if (freezed) {
         if(freezed_facility === d.facility_id){
             freezed = false;

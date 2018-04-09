@@ -8,21 +8,21 @@ $(function() {
 
       if(ref === "home" || ref === "second" || ref === "third") {
         console.log("allo");
-        $( "#filter-panel" ).hide(1000);
-        $( "#filter-province-section" ).hide(1000);
-        $( "#filter-gaz-section" ).hide(1000);
-        $( "#filter-radar-legend" ).hide(1000);
+        $( "#filter-panel" ).hide(500);
+        $( "#filter-province-section" ).hide(500);
+        $( "#filter-gaz-section" ).hide(500);
+        $( "#filter-radar-legend" ).hide(500);
       } else {
-        $( "#filter-panel" ).show(1000);
-        $( "#filter-province-section" ).show(1000);
-        $( "#filter-gaz-section" ).show(1000);
-        $( "#filter-radar-legend" ).hide(1000);
+        $( "#filter-panel" ).show(500);
+        $( "#filter-province-section" ).show(500);
+        $( "#filter-gaz-section" ).show(500);
+        $( "#filter-radar-legend" ).hide(500);
       }
 
       if(ref === "sixth") {
-        $( "#filter-province-section" ).hide(1000);
-        $( "#filter-gaz-section" ).hide(1000);
-        $( "#filter-radar-legend" ).show(1000);
+        $( "#filter-province-section" ).hide(500);
+        $( "#filter-gaz-section" ).hide(500);
+        $( "#filter-radar-legend" ).show(500);
       }
 
       $(".pagination .active").removeClass("active");

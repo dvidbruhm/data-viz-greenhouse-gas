@@ -23,8 +23,8 @@ var radarChartMargin = {
     left: 0
 };
 
-var circle_width = 5;
-var circle_width_hovered = 10;
+var circle_width = 3;
+var circle_width_hovered = 6;
 
 var radarDataSet = [];
 var radarChartGroup = undefined;
@@ -142,7 +142,7 @@ function drawRadarChart(){
 									radarChartGroup.append("text")
 												.attr("class", "radar-tip-text")
 												.text(function() {
-													return value.toFixed(2) + " %";
+													return e[0].axis + " : " + value.toFixed(2) + " %";
 												})
 												.attr("id", "radar-text-id" + parseInt(pos.x + pos.y))
 												.attr("text-anchor", "middle")
@@ -295,7 +295,7 @@ function radarChartLegend() {
 
 	var legendChartWidth = parseFloat(d3.select(".filter-space").node().getBoundingClientRect().width) - 30;
 	var legendChartHeight = parseFloat(d3.select(".filter-space").node().getBoundingClientRect().height);
-	console.log(legendChartWidth)
+
 	var legendCfg = {
 		w: legendChartWidth,
 		h: legendChartWidth,
