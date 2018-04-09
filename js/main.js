@@ -35,21 +35,15 @@ var globalData = undefined;
 			}
 			sumCO2 = sumCO2 / 1000000;
 			sumCO2.toFixed(2);
-			document.getElementById("listitem1").innerHTML = "Plus de " + sumCO2 + " mégatonnes de CO<sub class=\"sub-c\">2 eq</sub> ont été émises.";
+			document.getElementById("listitem1").innerHTML = "Plus de " + sumCO2.toFixed(1) + " mégatonnes de CO<sub class=\"sub-c\">2 eq</sub> ont été émises.";
 			document.getElementById("listitem2").innerHTML = data.length + " compagnies ont émis plus de 50 kilotonnes de CO<sub class=\"sub-c\">2 eq</sub> par année.";
 			
             main_vizgaz();
             main_barchart(data, localization);
             linechart(data);
-			radar(data);
+            radar(data);
+            radarChartLegend();
 			
-			
-            //TODO
-            $(window).resize(function(){
-                setTimeout(function() {
-                    //barchart1(data, localization);
-                }, 100);
-            });
         });
 
 	

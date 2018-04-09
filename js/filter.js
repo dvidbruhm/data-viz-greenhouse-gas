@@ -135,6 +135,7 @@ function updateFilters() {
     updateLineChartData(yearFilter, provinceFilter);
     updateXAxis();
     drawLineChart();
+    lineChartUnfreeze();
 
     createRadarData(filteredData, yearFilter);
     drawRadarChart();

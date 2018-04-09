@@ -179,9 +179,11 @@
   font-size: 12pt;
   top: 47%;
   transform: translateY(-47%);
-  opacity: 0;
   color: var(--main-text-color);
+  display: none;
 }
+
+
 
 .filter-section {
   border: 1px solid var(--main-data-color);
@@ -464,6 +466,14 @@ svg {
     font-size: 20px;
     fill: var(--main-text-color);
     background: black;
+  }
+
+  #svg-radar-legend {
+    font-size: 12px;  
+  }
+
+  #svg-radar-legend polygon {
+    stroke: rgba(0,0,0,0);
   }
   
 /***** Tooltip *****/

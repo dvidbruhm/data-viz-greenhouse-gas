@@ -31,7 +31,7 @@ function barchart1(data, localization) {
       .attr('class', 'd3-tip')
       .offset([-25, 0])
       .html(function(d) {
-        return "<span class='d3-tip-text'>Émission:</span> <span class='d3-tip-text-emphasize'>" + d.total + "</span> <strong>kT</strong>";
+        return "<span class='d3-tip-text'>Émission:</span> <span class='d3-tip-text-emphasize'>" + d.total.toFixed(0) + "</span> <strong>kT</strong>";
       });
 
     /***** Création des éléments du diagramme à barres *****/
@@ -110,10 +110,11 @@ function createAxes1() {
     // Titre de l'axe y
     barChart1Group.append("text")
                     .attr("class", "y label")
-                    .attr("x", -38)
+                    .attr("x", 0)
                     .attr("y", -10)
                     .style("font-size", "6mm")
-                    .text("CO2 équivalent")
+                    .text("CO2 équivalent [kT]")
+                    .attr("text-anchor", "middle");
 }
 
 function drawBarChart1(yearFilter, provinceFilter) {

@@ -150,10 +150,11 @@ function createLineChartAxes() {
     // Titre de l'axe y
     lineChartGroup.append("text")
                     .attr("class", "y label")
-                    .attr("x", -38)
+                    .attr("x", 0)
                     .attr("y", -10)
                     .style("font-size", "6mm")
-                    .text("CO2 équivalent")
+                    .text("CO2 équivalent [kT]")
+                    .attr("text-anchor", "middle");
 
 }
 
@@ -256,6 +257,12 @@ function drawLineChart() {
 var freezed = false;
 var freezed_facility = undefined;
 
+function lineChartUnfreeze() {
+    freezed = false;
+    lineChartTipOut();
+    d3.select("#brush").classed("brush-disabled", false);
+}
+
 function lineChartClick(d){
     console.log(d3.select("#brush"));
     if (freezed) {
@@ -270,17 +277,17 @@ function lineChartClick(d){
     }
 }
 
-function lineChartTipOut (d) {
+function lineChartTipOut () {
     if(!freezed){
-    lineChartGroup.selectAll(".circle-tip")
-                .remove();
-    lineChartGroup.selectAll(".circle-tip-text")
-                .remove();
-    lineChartGroup.selectAll(".circle-tip-bg")
-                .remove();
-    lineChartGroup.selectAll(".circle-tip-bg2")
-                .remove();
-    d3.select(this).classed("line-hovered", false);
+        lineChartGroup.selectAll(".circle-tip")
+                    .remove();
+        lineChartGroup.selectAll(".circle-tip-text")
+                    .remove();
+        lineChartGroup.selectAll(".circle-tip-bg")
+                    .remove();
+        lineChartGroup.selectAll(".circle-tip-bg2")
+                    .remove();
+        lineChartGroup.select(".line-hovered").classed("line-hovered", false);
     }
 }
 
@@ -365,22 +372,22 @@ function lineChartTip(d) {
     
     if(!freezed){
     
-    d3.select(this).classed("line-hovered", true);
-    lineChartPoints(d);
+        d3.select(this).classed("line-hovered", true);
+        lineChartPoints(d);
 
-    d3.select("#line-chart-company").text(d.company_legal_name)
-                                    .attr("title", d.company_legal_name);
-    d3.select("#line-chart-facility").text(d.facility_name)
-                                    .attr("title", d.facility_name);
-    d3.select("#line-chart-address").text(d.facility_address + ", " + d.facility_city + ", " + d.facility_province)
-                                    .attr("title", d.facility_address + ", " + d.facility_city + ", " + d.facility_province);
-    d3.select("#line-chart-postal").text(d.facility_postal_code)
-                                    .attr("title", d.facility_postal_code);
-    d3.select("#line-chart-contact-name").text(d.contact_name)
-                                    .attr("title", d.contact_name);
-    d3.select("#line-chart-contact-phone").text(d.contact_phone)
-                                    .attr("title", d.contact_phone);
-    d3.select("#line-chart-contact-email").text(d.contact_email)
-                                    .attr("title", d.contact_email);
+        d3.select("#line-chart-company").text(d.company_legal_name)
+                                        .attr("title", d.company_legal_name);
+        d3.select("#line-chart-facility").text(d.facility_name)
+                                        .attr("title", d.facility_name);
+        d3.select("#line-chart-address").text(d.facility_address + ", " + d.facility_city + ", " + d.facility_province)
+                                        .attr("title", d.facility_address + ", " + d.facility_city + ", " + d.facility_province);
+        d3.select("#line-chart-postal").text(d.facility_postal_code)
+                                        .attr("title", d.facility_postal_code);
+        d3.select("#line-chart-contact-name").text(d.contact_name)
+                                        .attr("title", d.contact_name);
+        d3.select("#line-chart-contact-phone").text(d.contact_phone)
+                                        .attr("title", d.contact_phone);
+        d3.select("#line-chart-contact-email").text(d.contact_email)
+                                        .attr("title", d.contact_email);
     }
 }

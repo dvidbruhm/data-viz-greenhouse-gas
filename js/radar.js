@@ -17,10 +17,10 @@ var naics_codes = {
 
 /***** Configuration *****/
 var radarChartMargin = {
-    top: 55,
-    right: 50,
-    bottom: 50,
-    left: 50
+    top: 30,
+    right: 0,
+    bottom: 0,
+    left: 0
 };
 
 var circle_width = 5;
@@ -41,8 +41,6 @@ function radar(data) {
     radarChartWidth = parseFloat(radarChartSvg.node().getBoundingClientRect().width) - radarChartMargin.left - radarChartMargin.right;
     radarChartHeight = parseFloat(radarChartSvg.node().getBoundingClientRect().height) - radarChartMargin.top - radarChartMargin.bottom;
 
-
-    /***** Création des éléments du diagramme à barres *****/
     radarChartSvg.attr("width", radarChartWidth + radarChartMargin.left + radarChartMargin.right)
                 .attr("height", radarChartHeight + radarChartMargin.top + radarChartMargin.bottom);
                 
@@ -52,27 +50,24 @@ function radar(data) {
 
 	radarChart = RadarChart.chart();
 								
-	//radarChart.config({w: radarChartWidth / 4, h: radarChartHeight / 3, axisText: true, levels: 5, circles: true});
 	radarConfig = radarChart.config();
 	
 	radarConfig.w = radarChartWidth / 4;
 	radarConfig.h = radarChartHeight / 3;
 	radarConfig.radius = circle_width;
-	radarConfig.levels = 3;
+	radarConfig.levels = 2;
 	radarConfig.minValue = -10;
 	radarConfig.maxValue = 100;
 	radarConfig.axisLine = true;
-	radarConfig.axisText = true;
+	radarConfig.axisText = false;
 	radarConfig.color = function() {};
-	radarConfig.factor = 0.8;
-	radarConfig.factorLegend = 0.9;
+	radarConfig.factor = 0.9;
 	radarConfig.transitionDuration = 2000;
 
 	var provinces = d3.keys(default_prov_filter);
 
 	for(var i = 0; i < 12; i++) {
 		var prov = provinces[i];
-		console.log("allo")
 		radarChartGroup.append("text")
 						.attr("x", function(){
 							return ((i % 4) * radarConfig.w) + 20;
@@ -92,10 +87,8 @@ function radar(data) {
 	drawRadarChart();
 }
 
-var olddata = []
 function drawRadarChart(){
 
-	console.log(radarDataSet);
 	radarChartGroup.selectAll('g.radar-chart').remove();
 
 	radarChartGroup.selectAll('g.radar-chart')
@@ -122,8 +115,8 @@ function drawRadarChart(){
 
 									var value = e[0].value;
 
-									var y_offset = 25;
-									var x_offset = 8;
+									var y_offset = 38;
+									var x_offset = 13;
 									var border = 2;
 
 									d3.select(this)
@@ -134,10 +127,7 @@ function drawRadarChart(){
 												.attr("class", "radar-tip-bg2")
 												.attr("id", "radar-tip-bg2" + parseInt(pos.x + pos.y))
 												.attr("y", function() {
-													var y_offset2 = 0;
-													if(e[0].axis === "Extraction minière")
-														y_offset2 += 0;
-													return pos.y - y_offset - border - y_offset2;
+													return pos.y - y_offset - border;
 												})
 												.attr("fill", "orange");
 
@@ -145,10 +135,7 @@ function drawRadarChart(){
 												.attr("class", "radar-tip-bg")
 												.attr("id", "radar-tip-bg" + parseInt(pos.x + pos.y))
 												.attr("y", function() {
-													var y_offset2 = 0;
-													if(e[0].axis === "Extraction minière")
-														y_offset2 += 0;
-													return pos.y - y_offset - y_offset2;
+													return pos.y - y_offset;
 												})
 												.attr("fill", "black");
 
@@ -163,10 +150,7 @@ function drawRadarChart(){
 													return pos.x + circle_width_hovered/2 + x_offset;
 												})
 												.attr("y", function() {
-													var y_offset2 = 0;
-													if(e[0].axis === "Extraction minière")
-														y_offset2 += 0;
-													return pos.y - y_offset + 15 - y_offset2;
+													return pos.y - y_offset + 15;
 												});
 									
 									d3.select("#radar-tip-bg2" + parseInt(pos.x + pos.y))
@@ -286,5 +270,53 @@ function createRadarData(data, year_filter) {
 		]
 		)
 	});
+	console.log(radarDataSet);
+
+}
+
+
+function radarChartLegend() {
+
+	var axes = [];
+
+	d3.keys(naics_codes).forEach(code => {
+		axes.push(
+			{
+				axis: naics_codes[code],
+				value: 0
+			}
+		);
+	});
+
+	var legendData = [{
+		className: "legend",
+		axes: axes
+	}];
+
+	var legendChartWidth = parseFloat(d3.select(".filter-space").node().getBoundingClientRect().width) - 30;
+	var legendChartHeight = parseFloat(d3.select(".filter-space").node().getBoundingClientRect().height);
+	console.log(legendChartWidth)
+	var legendCfg = {
+		w: legendChartWidth,
+		h: legendChartWidth,
+		minValue: 0,
+		maxValue: 100,
+		levels: 2,
+		factor: 0.5,
+		factorLegend: 0.7,
+		radius: 0,
+		color: function() {},
+	}
+
+	  
+	var legendChartSvg = d3.select("#svg-radar-legend");	
+	legendChartSvg.attr("width", legendChartWidth)
+					.attr("height", legendChartWidth);
+
+
+	RadarChart.draw("#svg-radar-legend", legendData, legendCfg);
+
+	d3.select("#svg-radar-legend.polygon").attr("stroke", "rgba(0,0,0,0)");
+
 
 }
