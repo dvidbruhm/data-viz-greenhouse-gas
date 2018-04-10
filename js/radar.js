@@ -123,9 +123,7 @@ function drawRadarChart(){
 									var x = d3.select(this).attr("cx");
 									var y = d3.select(this).attr("cy");
 									var elem = d3.select(this).node();
-									var pos = convertCoordsToAbsolute(elem,x,y);
-									console.log(elem.getBoundingClientRect());
-									pos = {x : elem.getBoundingClientRect().x - $(".filter-space").width(), 
+									var pos = {x : elem.getBoundingClientRect().x - $(".filter-space").width(), 
 											y: elem.getBoundingClientRect().y - $(window).height()*0.08 - 30}
 
 									var value = e[0].value;
@@ -201,20 +199,6 @@ function drawRadarChart(){
 		});
 
 }
-
-function convertCoordsToAbsolute(elem,x,y) {
-
-	var offset = radarChartGroup.node().getBoundingClientRect();
-  
-	var matrix = elem.getScreenCTM();
-  
-	return {
-	  x: (matrix.a * x) + (matrix.c * y) + matrix.e - offset.left,
-	  y: (matrix.b * x) + (matrix.d * y) + matrix.f - offset.top
-	};
-  }
-
-
 
 function createRadarData(data, year_filter) {
 	/**
