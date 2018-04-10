@@ -297,8 +297,12 @@ function lineChartPoints(d) {
     var border = 2;
     var y_offset = 35;
 
+    years = d.years.filter(function(e) {
+        return e.year >= currentYearFilter[0] && e.year <= currentYearFilter[1];
+    });
+
     lineChartGroup.selectAll(".circle-tip-bg2")
-                .data(d.years)
+                .data(years)
                 .enter()     
                 .append("rect")
                 .attr("class", "circle-tip-bg2")
@@ -308,7 +312,7 @@ function lineChartPoints(d) {
                 .attr("fill", "orange");
 
     lineChartGroup.selectAll(".circle-tip-bg")
-                .data(d.years)
+                .data(years)
                 .enter()         
                 .append("rect")
                 .attr("class", "circle-tip-bg")
@@ -318,7 +322,7 @@ function lineChartPoints(d) {
                 .attr("fill", "black");
 
     lineChartGroup.selectAll(".circle-tip")
-                .data(d.years)
+                .data(years)
                 .enter()
                 .append("circle")
                 .attr("class", "circle-tip")
@@ -331,7 +335,7 @@ function lineChartPoints(d) {
                 })
                 
     lineChartGroup.selectAll(".circle-tip-text")
-                .data(d.years)
+                .data(years)
                 .enter()
                 .append("text")
                 .attr("class", "circle-tip-text")

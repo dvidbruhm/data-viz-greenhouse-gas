@@ -327,6 +327,7 @@ svg {
 }
   
 .svg_gaz {
+    margin-top: 10px;
     height: 750px;
 	width: 750px;
   }
