@@ -1,4 +1,10 @@
 $(function() {
+  
+  $( "#filter-year-section" ).hide(0);
+  $( "#filter-province-section" ).hide(0);
+  $( "#filter-gaz-section" ).hide(0);
+  $( "#filter-radar-section" ).hide(0);
+
   $.scrollify({
 		section:".panel",
     scrollbars:false,

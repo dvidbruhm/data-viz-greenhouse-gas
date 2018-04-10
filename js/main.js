@@ -2,7 +2,7 @@
 var globalData = undefined;
 
 
-(function (L, d3, topojson, searchBar, localization) {
+(function (d3, localization) {
 
 	init_filter_panel();
 
@@ -48,4 +48,4 @@ var globalData = undefined;
 
 	
 
-})(L, d3, topojson, searchBar, localization);
+})(d3, localization);

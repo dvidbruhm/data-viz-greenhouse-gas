@@ -282,7 +282,6 @@ function createRadarData(data, year_filter) {
 		]
 		)
 	});
-	console.log(radarDataSet);
 
 }
 
