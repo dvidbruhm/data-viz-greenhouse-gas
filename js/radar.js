@@ -124,11 +124,14 @@ function drawRadarChart(){
 									var y = d3.select(this).attr("cy");
 									var elem = d3.select(this).node();
 									var pos = convertCoordsToAbsolute(elem,x,y);
+									console.log(elem.getBoundingClientRect());
+									pos = {x : elem.getBoundingClientRect().x - $(".filter-space").width(), 
+											y: elem.getBoundingClientRect().y - $(window).height()*0.08 - 30}
 
 									var value = e[0].value;
 
-									var y_offset = 38;
-									var x_offset = 13;
+									var y_offset = 30;
+									var x_offset = 0;
 									var border = 2;
 
 									d3.select(this)
@@ -329,6 +332,37 @@ function radarChartLegend() {
 
 	d3.select("#svg-radar-legend.polygon").attr("stroke", "rgba(0,0,0,0)");
 
+	legendChartSvg.selectAll(".legend.left")
+					.text(function(d){
+						var y = d3.select(this).attr("y");
+						var x = d3.select(this).attr("x");
+						var name = d3.select(this).text().split(" ")[0];
+						console.log(x + " " + y);
+						legendChartSvg.append("text")
+										.classed("axis", true)
+										.text(function(){
+											if (name === "Extraction") {
+												return "Minière";
+											}
+											return "publics";
+										})
+										.attr("text-anchor", "middle")
+										.attr("dy", function(){
+											if (name === "Extraction") {
+												return "1.5em";
+											}
+											return "1.0em";
+										})
+										.style("color", "white")
+										.attr("y", function(){
+											return y;
+										})
+										.attr("x", function(){
+											return x;
+										});
+
+						return name;
+					});
 
 
 }
