@@ -8,9 +8,7 @@ var naics_codes = {
 	"3": "Fabrication",
 	"22": "Services publics",
 	"48": "Transport",
-	"56": "Services administratifs",
-	"61": "Services d'enseignement",
-	"91": "Administrations publiques"
+	"99": "Autre"
 }
 
 var provFull = {
