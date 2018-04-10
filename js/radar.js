@@ -8,9 +8,7 @@ var naics_codes = {
 	"3": "Fabrication",
 	"22": "Services publics",
 	"48": "Transport",
-	"56": "Services administratifs",
-	"61": "Enseignement",
-	"91": "Administrations publiques"
+	"99": "Autre"
 }
 
 var provFull = {
@@ -69,7 +67,7 @@ function radar(data) {
 	radarConfig.h = radarChartHeight / 3;
 	radarConfig.radius = circle_width;
 	radarConfig.levels = 1;
-	radarConfig.minValue = -10;
+	radarConfig.minValue = -6;
 	radarConfig.maxValue = 100;
 	radarConfig.axisLine = true;
 	radarConfig.axisText = false;

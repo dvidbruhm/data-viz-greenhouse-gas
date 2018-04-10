@@ -62,6 +62,14 @@ function cleandata(rawdata){
 
     rawdata.forEach(element => {
         var d = data.find(x => x.facility_id === element[keys[9]]);
+		var codeNAICS = "";
+		if (element[keys[10]].substring(0,1)=="3") {
+			codeNAICS = "3";
+		} else if (element[keys[10]].substring(0,1)=="2") {
+			codeNAICS = element[keys[10]].substring(0,2);
+		} else {
+			codeNAICS = "99";
+		}
         if (!code_list.includes(element[keys[10]].substring(0, 2)))
         {
             code_list.push(element[keys[10]].substring(0, 2));
@@ -118,7 +126,7 @@ function cleandata(rawdata){
                     facility_province: element[keys[5]],
                     facility_postal_code: element[keys[6]],
                     facility_id: element[keys[9]],
-                    facility_code: element[keys[10]].substring(0, (element[keys[10]].substring(0,1)=="3"?1:2)),
+                    facility_code: codeNAICS,
                     facility_code_description: element[keys[11]],
                     company_legal_name: element[keys[12]],
                     company_trade_name: element[keys[13]],
@@ -146,7 +154,7 @@ function cleandata(rawdata){
                 d.facility_province= element[keys[5]];
                 d.facility_postal_code= element[keys[6]];
                 d.facility_id= element[keys[9]];
-                d.facility_code= element[keys[10]].substring(0, (element[keys[10]].substring(0,1)=="3"?1:2));
+                d.facility_code= codeNAICS;
                 d.facility_code_description= element[keys[11]];
                 d.company_legal_name= element[keys[12]];
                 d.company_trade_name= element[keys[13]];
