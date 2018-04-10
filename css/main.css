@@ -467,9 +467,9 @@ svg {
   }
 
   .radar-prov-label {
-    font-size: 20px;
+    font-size: 15px;
     fill: var(--main-text-color);
-    background: black;
+    opacity: 1;
   }
 
   #svg-radar-legend .radar-chart .level-group-0 {

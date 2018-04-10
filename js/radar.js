@@ -9,7 +9,7 @@ var naics_codes = {
 	"22": "Services publics",
 	"48": "Transport",
 	"56": "Services administratifs",
-	"61": "Services d'enseignement",
+	"61": "Enseignement",
 	"91": "Administrations publiques"
 }
 
@@ -83,14 +83,15 @@ function radar(data) {
 		var prov = provinces[i];
 		radarChartGroup.append("text")
 						.attr("x", function(){
-							return ((i % 4) * radarConfig.w) + 20;
+							return ((i % 4) * radarConfig.w) + radarChartWidth/8;
 						})
 						.attr("y", function(){
-							return ((parseInt(i / 4)) % 3 * radarConfig.h) + 20;
+							return ((parseInt(i / 4)) % 3 * radarConfig.h) + 10;
 						})
 						.text(function(){
 							return provFull[prov];
 						})
+						.attr("text-anchor", "middle")
 						.classed("radar-prov-label", true);
 
 	}
@@ -331,11 +332,6 @@ function radarChartLegend() {
 
 	d3.select("#svg-radar-legend.polygon").attr("stroke", "rgba(0,0,0,0)");
 
-	d3.selectAll("#svg-radar-legend text")
-		.text(function(d){
-			console.log(d)
-			return d[0].name.replace(" ", "\n");
-		})
 
 
 }
