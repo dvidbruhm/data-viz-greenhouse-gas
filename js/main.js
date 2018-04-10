@@ -6,14 +6,10 @@ var globalData = undefined;
 
 	init_filter_panel();
 
-    /***** Échelles utilisées *****/
-    //TODO
-
-
     /***** Chargement des données *****/
 
     d3.queue()
-        .defer(d3.tsv, "./data/datat.csv")
+        .defer(d3.tsv, "./data/data_CLEANED.csv")
         .awaitAll(function (error, results) {
             if (error || results.length !== 1) {
                 throw error;
@@ -37,7 +33,8 @@ var globalData = undefined;
 			sumCO2.toFixed(2);
 			document.getElementById("listitem1").innerHTML = "Plus de " + sumCO2.toFixed(1) + " mégatonnes de CO<sub class=\"sub-c\">2 eq</sub> ont été émises.";
 			document.getElementById("listitem2").innerHTML = data.length + " compagnies ont émis plus de 50 kilotonnes de CO<sub class=\"sub-c\">2 eq</sub> par année.";
-			
+            
+            /** Visualisation initialisation**/
             main_vizgaz();
             main_barchart(data, localization);
             linechart(data);

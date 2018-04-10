@@ -321,7 +321,7 @@ function radarChartLegend() {
 						var y = d3.select(this).attr("y");
 						var x = d3.select(this).attr("x");
 						var name = d3.select(this).text().split(" ")[0];
-						console.log(x + " " + y);
+						
 						legendChartSvg.append("text")
 										.classed("axis", true)
 										.text(function(){
