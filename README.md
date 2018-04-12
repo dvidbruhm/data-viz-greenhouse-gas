@@ -1,5 +1,7 @@
 ## INF8808 - Data visualisation projet
 
+:exclamation: **Works on Firefox and Chrome.** :exclamation:
+
 :exclamation: **Page needs to be refreshed when the window is resized.** :exclamation:
 
 :exclamation: **Minimum recommended resolution: 1280×800** :exclamation:
