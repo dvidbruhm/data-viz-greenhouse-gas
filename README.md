@@ -6,9 +6,9 @@
 
 :exclamation: **Minimum recommended resolution: 1280×800** :exclamation:
 
-Link to website: https://thedriller.github.io
+Link to website: https://davaham.github.io
 
-The dataset used comes from the Government of Canada : http://donnees.ec.gc.ca/data/substances/monitor/greenhouse-gas-emissions-reporting-program-ghgrp-facility-greenhouse-gas-ghg-data/?wbdisable=true
+The dataset used comes from the Government of Canada : http://donnees.ec.gc.ca/data/substances/monitor/greenhouse-gas-reporting-program-ghgrp-facility-greenhouse-gas-ghg-data/
 
 #### Folder structure
 
