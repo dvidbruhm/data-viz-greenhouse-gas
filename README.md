@@ -6,7 +6,7 @@
 
 :exclamation: **Minimum recommended resolution: 1280×800** :exclamation:
 
-Link to website: https://dvidbruhm.github.io
+Link to website: https://dvidbruhm.github.io/data-viz-greenhouse-gas/
 
 The dataset used comes from the Government of Canada : http://donnees.ec.gc.ca/data/substances/monitor/greenhouse-gas-reporting-program-ghgrp-facility-greenhouse-gas-ghg-data/
 
